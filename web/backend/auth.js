@@ -53,7 +53,13 @@ function createAuth({ env = process.env, request = fetch, now = Date.now } = {})
             signal: AbortSignal.timeout(10000),
         });
         if (response.status === 401) throw new HttpError(401, "Session expired. Sign in again.");
-        if (!response.ok) throw new HttpError(503, "Discord is temporarily unavailable.");
+        if (!response.ok) {
+            const error = new HttpError(503, "Discord is temporarily unavailable.");
+            error.upstreamStatus = response.status;
+            error.upstreamRoute = path;
+            error.retryAfter = response.headers?.get("retry-after") || null;
+            throw error;
+        }
         return response.json();
     }
     return {

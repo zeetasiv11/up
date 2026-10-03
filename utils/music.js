@@ -69,7 +69,10 @@ async function restoreNode(music, name, client, db, logger) {
     try {
         node.info = await node.rest.getLavalinkInfo();
     } catch (error) {
-        logger.warn("[LAVALINK] Capabilities unavailable");
+        logger.warn("[LAVALINK] Capabilities unavailable", {
+            status: Number.isInteger(error.status) ? error.status : "unavailable",
+            code: error.code || error.name,
+        });
     }
     if (music.closing) return;
     if (music.reconcileNode) await music.reconcileNode();

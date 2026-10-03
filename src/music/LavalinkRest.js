@@ -43,6 +43,9 @@ class LavalinkRest extends Rest {
                 cause,
             });
             error.status = status;
+            error.operation = operation;
+            error.method = method;
+            error.code = cause.name === "AbortError" || cause.name === "TimeoutError" ? "LAVALINK_TIMEOUT" : "LAVALINK_REQUEST_FAILED";
             throw error;
         }
     }

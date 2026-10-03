@@ -21,7 +21,11 @@ module.exports = {
             const count = await interaction.client.music.enqueue(check.memberVoice, tracks, { textChannel: interaction.channel, member: interaction.member });
             return interaction.editReply({ content: "", embeds: [createSuccessEmbed(count === 1 ? tracks[0].info.title.slice(0, 250) : `${count} tracks added`, "Added to queue")], components: [] });
         } catch (error) {
-            logger.warn(`[MUSIC] Play request failed (${interaction.guildId})`);
+            logger.warn(`[MUSIC] Play request failed (${interaction.guildId})`, {
+                status: Number.isInteger(error.status) ? error.status : "unavailable",
+                operation: error.operation || "voice-or-queue",
+                code: error.code || error.name,
+            });
             return interaction.editReply({ content: "", embeds: [createErrorEmbed("Lagu belum bisa diputar. Pastikan kamu masih di voice channel yang sama dan node/source tersedia.")], components: [] });
         }
     }

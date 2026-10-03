@@ -302,7 +302,12 @@ function createDashboard({
         } catch (error) {
             const status = error.status || (error.name === "ZodError" ? 400 : 500);
             if (status >= 500)
-                logger.error("Dashboard request failed", { service: "web", error: error.message });
+                logger.error("Dashboard request failed", {
+                    service: "web", error: error.message,
+                    upstreamStatus: error.upstreamStatus,
+                    upstreamRoute: error.upstreamRoute,
+                    retryAfter: error.retryAfter,
+                });
             if (!res.headersSent)
                 json(
                     res,
