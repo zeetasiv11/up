@@ -34,10 +34,13 @@ Filter replacement also replaces its local filter cache, so cleared filters are
 not restored during node recovery. Stop clears songs and invalidates track events;
 Discord and dashboard honor the same `leaveOnStop` policy.
 
-Panels retain V4's theme/components, reuse one persistent message and coalesce
-updates for 250 ms. Payloads read the current manager state after asynchronous
-Discord fetches. Duplicate payloads are skipped; transient fetch/edit failures do
-not create another message. Startup panel restoration reads any active player.
+Panels retain V4's theme/components and coalesce updates for 250 ms. Each accepted
+request and successful track change moves the panel to the bottom of the latest
+request channel: delete the previous panel, then send and persist its replacement.
+If deletion fails, no replacement is sent. Progress, pause, volume, and other state
+updates edit the existing message; they do not move it. Payloads read current manager
+state after Discord fetches. Duplicate edits are skipped. Startup restoration reads
+the saved panel without moving it or joining voice.
 SSE and dashboard state come from the same manager.
 
 ## Voice recovery

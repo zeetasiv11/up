@@ -75,38 +75,66 @@ test("fresh /play starts the first search result immediately and repeated comman
     }
 });
 
-test("slash and prefix play expose the restored panel instead of leaving it hidden in an old channel", async (t) => {
+test("requests and track changes move one panel to the latest channel while controls keep the same player", async (t) => {
     const f = session();
     t.after(() => f.manager.close());
     const { MusicPanelUpdater } = require("../src/music/MusicPanelUpdater");
     const { prefixInteraction } = require("../src/bot/PrefixInteraction");
-    let created = 0;
-    const panel = { id: "panel", channelId: "old-channel", author: { id: "bot" },
-        url: "https://discord.com/channels/guild/old-channel/panel", edit: async () => {} };
-    const savedChannel = { id: "old-channel", guildId: "guild", isTextBased: () => true,
-        messages: { fetch: async () => panel }, send: async () => { created++; return panel; } };
-    panel.channel = savedChannel;
+    let created = 0, deleted = 0;
+    const messages = new Map();
+    const makePanel = (channel, id) => {
+        const panel = { id, channel, channelId: channel.id, author: { id: "bot" },
+            url: `https://discord.com/channels/guild/${channel.id}/${id}`,
+            edit: async () => {}, delete: async () => { messages.delete(id); deleted++; } };
+        messages.set(id, panel);
+        return panel;
+    };
+    const makeChannel = (id) => ({ id, guildId: "guild", isTextBased: () => true,
+        messages: { fetch: async id => messages.get(id) },
+        async send() { assert.equal(messages.size, 0); return makePanel(this, `panel-${++created}`); } });
+    const savedChannel = makeChannel("old-channel");
+    makePanel(savedChannel, "old-panel");
     f.manager.client.user = { id: "bot" };
     f.manager.client.channels = { fetch: async () => savedChannel };
-    f.manager.repository.updateGuild("guild", { musicPanel: { channelId: "old-channel", messageId: "panel" } });
+    f.manager.repository.updateGuild("guild", { musicPanel: { channelId: "old-channel", messageId: "old-panel" } });
     f.manager.panels = new MusicPanelUpdater(f.manager.client, f.manager.repository, silent);
-    f.interaction.channel = { ...savedChannel, id: "new-channel" };
+    f.interaction.channel = makeChannel("new-channel");
     await play.execute(f.interaction);
     const checkLink = () => {
-        const button = f.reply.components[0].toJSON().components[0];
-        assert.equal(button.style, 5);
-        assert.equal(button.url, panel.url);
-        assert.match(f.reply.embeds[0].toJSON().fields[0].value, /old-channel\/panel/);
+        assert.equal(messages.size, 1);
+        const panel = [...messages.values()][0];
+        assert.equal(panel.channelId, "new-channel");
+        assert.equal(f.reply.components[0].toJSON().components[0].url, panel.url);
+        assert.equal(f.manager.repository.getGuild("guild").musicPanel.messageId, panel.id);
     };
     checkLink();
-    const player = f.manager.getQueue("guild").player;
+    assert.equal(created, 1);
+    const q = f.manager.getQueue("guild"), player = q.player;
+    f.node.rest.resolve = async () => ({ loadType: "track", data: track(2) });
     const message = { ...f.interaction, author: f.listener.user, channelId: "new-channel",
         reply: async () => ({ edit: async (payload) => { f.reply = payload; } }) };
     await play.execute(prefixInteraction(message, ["another song"]));
     checkLink();
-    assert.equal(created, 0);
+    assert.equal(created, 2);
+    await q.pause();
+    await q.setVolume(35);
+    await q.resume();
+    await f.manager.notify(q);
+    assert.equal(created, 2, "progress and controls edit in place");
+    player.emit("end", { reason: "finished", track: { ...track(1), userData: player.userData } });
+    await drain(f);
+    assert.equal(created, 3, "natural track change moves the panel");
+    player.emit("start", { track: { ...track(2), userData: player.userData } });
+    await drain(f);
+    assert.equal(created, 3, "trackStart does not move it a second time");
+    await f.manager.enqueue(f.channel, [track(3)], { member: f.listener });
+    assert.equal(created, 4, "dashboard/shared enqueue also moves the panel");
+    await q.skip();
+    assert.equal(created, 5, "skip moves it once");
+    assert.equal(deleted, 5);
+    assert.equal(messages.size, 1);
     assert.equal(f.lavalink.joins, 1);
-    assert.equal(f.manager.getQueue("guild").player, player);
+    assert.equal(q.player, player);
 });
 
 test("concurrent creation and concurrent enqueues never duplicate guild players", async (t) => {

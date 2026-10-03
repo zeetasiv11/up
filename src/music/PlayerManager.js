@@ -80,7 +80,7 @@ class MusicQueue {
         } catch {
             this.manager.logger.warn(`[MUSIC] History unavailable (${this.id})`);
         }
-        await this.manager.notify(this);
+        await this.manager.notify(this, { moveToBottom: true });
     }
     async advance(manual = false) {
         const old = this.songs[0];

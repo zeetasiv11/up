@@ -1,5 +1,5 @@
 const { buildNowPlayingEmbed, buildIdleMusicEmbed, buildControlRows } = require("../../utils/musicPanel.js");
-/** One stable message per guild. Transient Discord failures never create another panel. */
+/** One active message per guild; move it only for requests and new playback. */
 class MusicPanelUpdater {
     constructor(client, repository, logger) {
         this.client = client;
@@ -12,23 +12,26 @@ class MusicPanelUpdater {
     getUrl(guildId) {
         return this.panels.get(guildId)?.url || null;
     }
-    async update(queue, song = queue?.songs?.[0], reason) {
+    async update(queue, song = queue?.songs?.[0], reason, { moveToBottom = false } = {}) {
         const guildId = queue?.id || queue?.textChannel?.guildId;
         if (!guildId) return null;
         let pending = this.pending.get(guildId);
         if (pending) {
             Object.assign(pending, { queue, song, reason, dirty: true });
+            pending.moveToBottom ||= moveToBottom;
             return pending.promise;
         }
-        pending = { queue, song, reason, dirty: true };
+        pending = { queue, song, reason, moveToBottom, dirty: true };
         this.pending.set(guildId, pending);
         pending.promise = (async () => {
             let panel;
             do {
                 await new Promise((resolve) => setTimeout(resolve, 250));
                 pending.dirty = false;
+                const move = pending.moveToBottom;
+                pending.moveToBottom = false;
                 try {
-                    panel = await this.write(guildId, pending.queue, pending.song, pending.reason);
+                    panel = await this.write(guildId, pending.queue, pending.song, pending.reason, move);
                 } catch (error) {
                     this.logger.warn(`[PANEL] Update failed (${guildId}, code ${error.code || "unknown"})`);
                 }
@@ -37,7 +40,7 @@ class MusicPanelUpdater {
         })().finally(() => this.pending.delete(guildId));
         return pending.promise;
     }
-    async write(guildId, queue, song, reason) {
+    async write(guildId, queue, song, reason, moveToBottom = false) {
         const saved = this.repository.getGuild(guildId).musicPanel;
         let panel = this.panels.get(guildId),
             channel = queue?.textChannel || panel?.channel;
@@ -65,6 +68,22 @@ class MusicPanelUpdater {
             queue = this.client.music.getQueue(guildId);
             song = queue?.songs[0];
         } else if (song !== null) song = queue?.songs?.[0];
+        if (moveToBottom && song) {
+            channel = queue?.textChannel || channel;
+            if (channel?.guildId !== guildId || !channel?.isTextBased?.())
+                throw new Error("Invalid music panel destination");
+            if (panel) {
+                try {
+                    await panel.delete();
+                } catch (error) {
+                    // Never create a second control panel when deletion is uncertain.
+                    if (error.code !== 10008) throw error;
+                }
+                this.forget(guildId);
+                this.repository.updateGuild(guildId, { musicPanel: null });
+                panel = null;
+            }
+        }
         const payload = {
             embeds: [song ? buildNowPlayingEmbed(queue, song) : buildIdleMusicEmbed(reason)],
             components: buildControlRows(song ? queue : null),

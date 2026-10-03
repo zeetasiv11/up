@@ -87,7 +87,7 @@ class MusicManager extends EventEmitter {
     resolve(input) {
         return resolve(this.lavalink, input);
     }
-    async notify(queue) {
+    async notify(queue, panelOptions) {
         if (this.getQueue(queue.id) !== queue || queue.destroyed) return null;
         try {
             this.emit("change", queue.id);
@@ -101,7 +101,7 @@ class MusicManager extends EventEmitter {
                 this.logger.error(`[MUSIC] State persistence failed (${queue.id})`);
             }
         }
-        return this.panels.update(queue);
+        return this.panels.update(queue, undefined, undefined, panelOptions);
     }
     saveState(queue) {
         if (!this.repository.updateGuild) return;
@@ -180,7 +180,7 @@ class MusicManager extends EventEmitter {
     }
     reanchorMusicPanel(guildId) {
         const q = this.queues.get(guildId);
-        return q ? this.notify(q) : Promise.resolve(null);
+        return q ? this.notify(q, { moveToBottom: true }) : Promise.resolve(null);
     }
     restoreMusicPanels() {
         return this.panels.restore();
@@ -345,9 +345,11 @@ class MusicManager extends EventEmitter {
             const idle = queue.songs.length === 0;
             try {
                 this.assertMember(member, voiceChannel);
+                if (textChannel?.guildId === queue.id && textChannel.isTextBased?.())
+                    queue.textChannel = textChannel;
                 queue.songs.splice(position === 1 && !idle ? 1 : queue.songs.length, 0, ...songs);
                 if (idle) await queue.start();
-                else await this.notify(queue);
+                else await this.notify(queue, { moveToBottom: true });
             } catch (error) {
                 if (idle) {
                     this.suspend(queue.id);

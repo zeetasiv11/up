@@ -198,3 +198,38 @@ test("panel coalesces rapid requests and reads the active player after channel f
     assert.equal(payload.embeds[0].data.title, "Actual active track");
     assert.match(payload.embeds[0].data.description, /15%/);
 });
+
+test("panel moves survive coalesced progress updates and never replace an undeleted panel", async () => {
+    let created = 0, deleteError, sendError, saved;
+    const channel = { id: "channel", guildId: "guild", isTextBased: () => true,
+        async send(payload) {
+            if (sendError) throw sendError;
+            created++;
+            // A moved message needs its own fallback artwork attachment.
+            assert.ok(payload.files?.length);
+            return { id: `panel-${created}`, channelId: this.id, channel: this, author: { id: "bot" },
+                attachments: [{ name: payload.files[0].name }],
+                edit: async () => {}, delete: async () => { if (deleteError) throw deleteError; } };
+        } };
+    const repository = { getGuild: () => ({ musicPanel: saved }), updateGuild: (_, data) => { saved = data.musicPanel; } };
+    const updater = new MusicPanelUpdater({ user: { id: "bot" } }, repository, silent);
+    const player = queue();
+    player.textChannel = channel;
+    player.songs[0].thumbnail = "";
+    await updater.update(player);
+    await Promise.all([updater.update(player, undefined, undefined, { moveToBottom: true }), updater.update(player)]);
+    assert.equal(created, 2, "identical payload still moves once, despite concurrent progress update");
+    deleteError = Object.assign(new Error("no permission"), { code: 50013 });
+    await updater.update(player, undefined, undefined, { moveToBottom: true });
+    assert.equal(created, 2);
+    assert.equal(saved.messageId, "panel-2");
+    deleteError = Object.assign(new Error("already deleted"), { code: 10008 });
+    sendError = new Error("temporary send failure");
+    await updater.update(player, undefined, undefined, { moveToBottom: true });
+    assert.equal(saved, null);
+    assert.equal(updater.panels.size, 0);
+    deleteError = sendError = null;
+    await updater.update(player);
+    assert.equal(created, 3, "next update recovers a missing panel after send failure");
+    assert.equal(saved.messageId, "panel-3");
+});
