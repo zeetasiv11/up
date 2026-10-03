@@ -308,6 +308,8 @@ function createDashboard({
                     upstreamRoute: error.upstreamRoute,
                     retryAfter: error.retryAfter,
                 });
+            if (!res.headersSent && error.retryAfter)
+                res.setHeader("Retry-After", String(error.retryAfter));
             if (!res.headersSent)
                 json(
                     res,

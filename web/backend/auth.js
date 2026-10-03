@@ -1,4 +1,5 @@
 const crypto = require("node:crypto");
+const { setTimeout: sleep } = require("node:timers/promises");
 const API = "https://discord.com/api/v10";
 const random = () => crypto.randomBytes(32).toString("base64url");
 class HttpError extends Error {
@@ -7,9 +8,11 @@ class HttpError extends Error {
         this.status = status;
     }
 }
-function createAuth({ env = process.env, request = fetch, now = Date.now } = {}) {
+function createAuth({ env = process.env, request = fetch, now = Date.now, wait = sleep } = {}) {
     const sessions = new Map();
     const states = new Map();
+    const guildRequests = new WeakMap();
+    const guildLimits = new WeakMap();
     const origin = env.WEB_URL ? new URL(env.WEB_URL).origin : null;
     const secure = origin?.startsWith("https:");
     const configured = Boolean(
@@ -47,21 +50,42 @@ function createAuth({ env = process.env, request = fetch, now = Date.now } = {})
     function prune(map) {
         for (const [key, value] of map) if (value.expires <= now()) map.delete(key);
     }
-    async function discord(path, token) {
-        const response = await request(`${API}${path}`, {
-            headers: { Authorization: `Bearer ${token}` },
-            signal: AbortSignal.timeout(10000),
-        });
-        if (response.status === 401) throw new HttpError(401, "Session expired. Sign in again.");
-        if (!response.ok) {
-            const error = new HttpError(503, "Discord is temporarily unavailable.");
-            error.upstreamStatus = response.status;
-            error.upstreamRoute = path;
-            error.retryAfter = response.headers?.get("retry-after") || null;
-            throw error;
+    async function discord(path, token, limit = { until: 0 }) {
+        let waited = 0;
+        for (let attempt = 0; attempt < 3; attempt++) {
+            const delay = Math.max(0, limit.until - now());
+            if (waited + delay > 8000) break;
+            if (delay) { await wait(delay); waited += delay; }
+            const response = await request(`${API}${path}`, {
+                headers: { Authorization: `Bearer ${token}` },
+                signal: AbortSignal.timeout(10000),
+            });
+            if (response.status === 401) throw new HttpError(401, "Session expired. Sign in again.");
+            if (response.status === 429) {
+                const data = await response.json().catch(() => ({}));
+                const seconds = Number(response.headers?.get("retry-after") ?? data.retry_after ?? 1);
+                limit.until = now() + (Number.isFinite(seconds) && seconds > 0 ? seconds * 1000 : 1000);
+                continue;
+            }
+            if (!response.ok) {
+                const error = new HttpError(503, "Discord is temporarily unavailable.");
+                error.upstreamStatus = response.status;
+                error.upstreamRoute = path;
+                throw error;
+            }
+            if (response.headers?.get("x-ratelimit-remaining") === "0") {
+                const seconds = Number(response.headers.get("x-ratelimit-reset-after"));
+                if (Number.isFinite(seconds) && seconds > 0) limit.until = now() + seconds * 1000;
+            }
+            return response.json();
         }
-        return response.json();
+        const error = new HttpError(429, "Discord is limiting requests. Please wait a moment and try again.");
+        error.upstreamStatus = 429;
+        error.upstreamRoute = path;
+        error.retryAfter = Math.max(1, Math.ceil((limit.until - now()) / 1000));
+        throw error;
     }
+
     return {
         configured,
         origin,
@@ -141,9 +165,18 @@ function createAuth({ env = process.env, request = fetch, now = Date.now } = {})
                 throw new HttpError(403, "Invalid request origin or CSRF token.");
         },
         async guilds(session) {
-            return (await discord("/users/@me/guilds", session.token)).filter(
-                (guild) => guild.owner || (BigInt(guild.permissions || "0") & 40n) !== 0n,
+            // Coalesce concurrent page/stream requests, never cache permissions
+            // after completion: the next operation checks current access again.
+            if (guildRequests.has(session)) return guildRequests.get(session);
+            if (!guildLimits.has(session)) guildLimits.set(session, { until: 0 });
+            const pending = discord("/users/@me/guilds", session.token, guildLimits.get(session)).then(
+                (guilds) => guilds.filter(
+                    (guild) => guild.owner || (BigInt(guild.permissions || "0") & 40n) !== 0n,
+                ),
             );
+            guildRequests.set(session, pending);
+            try { return await pending; }
+            finally { guildRequests.delete(session); }
         },
         async authorize(session, guildId) {
             // Re-fetch for each operation: revoked Manage Guild access takes effect immediately.
