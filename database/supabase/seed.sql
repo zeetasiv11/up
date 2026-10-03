@@ -1,0 +1,2 @@
+-- Intentionally no production/customer data here.
+-- Import your own verified legacy snapshot with npm run db:migrate.

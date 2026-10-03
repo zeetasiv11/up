@@ -1,0 +1,4 @@
+node_modules/
+database/database.json
+database/legacy/*.json
+package-lock.json

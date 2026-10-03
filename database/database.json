@@ -1,0 +1,3640 @@
+{
+    "guilds": {
+        "1541655504563212359": {
+            "welcomeChannel": "1541655505053810690",
+            "goodbyeChannel": "",
+            "autoRole": "",
+            "logChannel": "",
+            "leveling": true,
+            "maintenance": false,
+            "lockedChannels": [],
+            "vcGuard": {
+                "enabled": true,
+                "channelId": "1541655505053810691",
+                "textChannelId": "1541655505053810691"
+            },
+            "disabledGames": [],
+            "boss": null
+        },
+        "1539713583653462167": {
+            "welcomeChannel": "1547887563476443246",
+            "goodbyeChannel": "1548531231724150944",
+            "autoRole": "1541658561162248213",
+            "logChannel": "",
+            "leveling": true,
+            "maintenance": false,
+            "lockedChannels": [],
+            "vcGuard": {
+                "enabled": true,
+                "channelId": "1539713584706359412",
+                "textChannelId": "1539713584706359412"
+            },
+            "disabledGames": [],
+            "boss": {
+                "name": "Ancient Dragon",
+                "emoji": "🐉",
+                "maxHp": 1000000,
+                "hp": 997348,
+                "rewardPool": 200000,
+                "damageLog": {
+                    "1443804231776862228": 809,
+                    "1435170491953582154": 1843
+                },
+                "spawnedAt": 1789024945586
+            }
+        }
+    },
+    "users": {
+        "1443804231776862228": {
+            "balance": 1550271,
+            "bank": 0,
+            "lastDaily": 1789222200496,
+            "lastWork": 1789475232332,
+            "xp": 399,
+            "level": 6,
+            "lastMessageXp": 1789564599617,
+            "gambling": {
+                "wins": 65,
+                "losses": 108,
+                "gamesPlayed": 173,
+                "totalWagered": 1067838086186
+            },
+            "dailyStreak": 1,
+            "lastWeekly": 0,
+            "inventory": {
+                "booster_xp": 20,
+                "material_crystal": 12,
+                "crate_basic": 3,
+                "crate_legendary": 47
+            },
+            "animals": [
+                {
+                    "instanceId": "rabbit_1788625440408_63",
+                    "animalId": "rabbit",
+                    "rarity": "common",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788625440408
+                },
+                {
+                    "instanceId": "kraken_1788626372441_847",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626372441
+                },
+                {
+                    "instanceId": "griffin_1788626637454_25",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626637454
+                },
+                {
+                    "instanceId": "dragon_1788626643923_844",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626643923
+                },
+                {
+                    "instanceId": "griffin_1788626668104_448",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626668104
+                },
+                {
+                    "instanceId": "griffin_1788626673358_740",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626673358
+                },
+                {
+                    "instanceId": "eagle_1788626677043_612",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626677043
+                },
+                {
+                    "instanceId": "kraken_1788660688839_339",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660688839
+                },
+                {
+                    "instanceId": "kraken_1788660749400_124",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660749400
+                },
+                {
+                    "instanceId": "kraken_1788660752523_364",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660752523
+                },
+                {
+                    "instanceId": "eagle_1788660754905_693",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660754905
+                },
+                {
+                    "instanceId": "bear_1788660757230_907",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660757230
+                },
+                {
+                    "instanceId": "bear_1788660759367_415",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660759367
+                },
+                {
+                    "instanceId": "eagle_1788660761597_66",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660761597
+                },
+                {
+                    "instanceId": "eagle_1788660763568_594",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660763568
+                },
+                {
+                    "instanceId": "dragon_1788660765505_651",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660765505
+                },
+                {
+                    "instanceId": "phoenix_1788660768147_815",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660768147
+                },
+                {
+                    "instanceId": "dragon_1788660772531_551",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660772531
+                },
+                {
+                    "instanceId": "griffin_1788660774926_82",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660774926
+                },
+                {
+                    "instanceId": "griffin_1788660777909_153",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660777909
+                },
+                {
+                    "instanceId": "dragon_1788660780035_928",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660780035
+                },
+                {
+                    "instanceId": "bear_1788660782124_437",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660782124
+                },
+                {
+                    "instanceId": "griffin_1788660784184_697",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660784184
+                },
+                {
+                    "instanceId": "dragon_1788660785866_805",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660785866
+                },
+                {
+                    "instanceId": "bear_1788660833298_709",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660833298
+                },
+                {
+                    "instanceId": "eagle_1788660836346_953",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660836346
+                },
+                {
+                    "instanceId": "phoenix_1788660838804_42",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660838804
+                },
+                {
+                    "instanceId": "phoenix_1788660841250_440",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660841250
+                },
+                {
+                    "instanceId": "bear_1788660844009_977",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660844009
+                },
+                {
+                    "instanceId": "kraken_1788660846378_48",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660846378
+                },
+                {
+                    "instanceId": "griffin_1788660849358_179",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660849358
+                },
+                {
+                    "instanceId": "voidwyrm_1788660852147_993",
+                    "animalId": "voidwyrm",
+                    "rarity": "mythic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660852147
+                },
+                {
+                    "instanceId": "dragon_1788660977867_790",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660977867
+                },
+                {
+                    "instanceId": "kraken_1788660983307_156",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660983307
+                },
+                {
+                    "instanceId": "phoenix_1788660987638_47",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660987638
+                },
+                {
+                    "instanceId": "panther_1788660991518_838",
+                    "animalId": "panther",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660991518
+                },
+                {
+                    "instanceId": "kraken_1788660995975_839",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660995975
+                },
+                {
+                    "instanceId": "kraken_1788661000729_718",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661000729
+                },
+                {
+                    "instanceId": "voidwyrm_1788661005844_621",
+                    "animalId": "voidwyrm",
+                    "rarity": "mythic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661005844
+                },
+                {
+                    "instanceId": "kraken_1788661302593_191",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661302593
+                },
+                {
+                    "instanceId": "griffin_1788661305339_231",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661305339
+                },
+                {
+                    "instanceId": "griffin_1788661307677_291",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661307677
+                },
+                {
+                    "instanceId": "griffin_1788661310464_226",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661310464
+                },
+                {
+                    "instanceId": "griffin_1788661312995_910",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661312995
+                },
+                {
+                    "instanceId": "kraken_1788661315213_427",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661315213
+                },
+                {
+                    "instanceId": "eagle_1788661318455_665",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661318455
+                },
+                {
+                    "instanceId": "dragon_1788661320753_335",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661320753
+                },
+                {
+                    "instanceId": "eagle_1788661322849_566",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661322849
+                },
+                {
+                    "instanceId": "griffin_1788661358130_298",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661358130
+                },
+                {
+                    "instanceId": "panther_1788661360253_917",
+                    "animalId": "panther",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661360253
+                },
+                {
+                    "instanceId": "griffin_1788661362740_845",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661362740
+                },
+                {
+                    "instanceId": "kraken_1788661364981_859",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661364981
+                },
+                {
+                    "instanceId": "dragon_1788661433376_516",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661433376
+                },
+                {
+                    "instanceId": "bear_1788661435835_256",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661435835
+                },
+                {
+                    "instanceId": "dragon_1788661438016_118",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661438016
+                },
+                {
+                    "instanceId": "dragon_1788661439844_952",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661439844
+                },
+                {
+                    "instanceId": "phoenix_1788661441910_340",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661441910
+                },
+                {
+                    "instanceId": "voidwyrm_1788661444349_869",
+                    "animalId": "voidwyrm",
+                    "rarity": "mythic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661444349
+                },
+                {
+                    "instanceId": "dragon_1788661446506_447",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661446506
+                },
+                {
+                    "instanceId": "sparrow_1789025328097_129",
+                    "animalId": "sparrow",
+                    "rarity": "common",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1789025328097
+                }
+            ],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "2026-09-16",
+                "list": [
+                    {
+                        "type": "earn_coins",
+                        "label": "Dapatkan coin dari aktivitas apapun",
+                        "progress": 0,
+                        "target": 6752,
+                        "reward": 1000,
+                        "claimed": false
+                    },
+                    {
+                        "type": "hunt",
+                        "label": "Lakukan hunting",
+                        "progress": 0,
+                        "target": 2,
+                        "reward": 700,
+                        "claimed": false
+                    },
+                    {
+                        "type": "win_game",
+                        "label": "Menangkan game apapun",
+                        "progress": 0,
+                        "target": 2,
+                        "reward": 1500,
+                        "claimed": false
+                    }
+                ],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 2,
+                "losses": 3
+            },
+            "marriage": {
+                "partnerId": "1312797603657679009",
+                "marriedAt": 1789453445034
+            },
+            "stats": {
+                "huntCount": 17,
+                "cratesOpened": 57
+            }
+        },
+        "950145000560295996": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 84,
+            "level": 4,
+            "lastMessageXp": 1789560667597,
+            "gambling": {
+                "wins": 1,
+                "losses": 1,
+                "gamesPlayed": 2,
+                "totalWagered": 2250000
+            },
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1435314527817437473": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 153,
+            "level": 2,
+            "lastMessageXp": 1789549389628,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1435170491953582154": {
+            "balance": 172820535371,
+            "bank": 0,
+            "lastDaily": 1788607868265,
+            "lastWork": 0,
+            "xp": 567,
+            "level": 15,
+            "lastMessageXp": 1789568448101,
+            "gambling": {
+                "wins": 54,
+                "losses": 81,
+                "gamesPlayed": 135,
+                "totalWagered": 1244426151286
+            },
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "inventory": {
+                "crate_basic": 1,
+                "booster_xp": 29,
+                "material_crystal": 38,
+                "food_premium": 594,
+                "food_basic": 99,
+                "weapon_staff": 1
+            },
+            "animals": [
+                {
+                    "instanceId": "rabbit_1788625250767_241",
+                    "animalId": "rabbit",
+                    "rarity": "common",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788625250767
+                },
+                {
+                    "instanceId": "bear_1788625587824_588",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788625587824
+                },
+                {
+                    "instanceId": "sparrow_1788625721128_989",
+                    "animalId": "sparrow",
+                    "rarity": "common",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788625721128
+                },
+                {
+                    "instanceId": "sparrow_1788625742359_983",
+                    "animalId": "sparrow",
+                    "rarity": "common",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788625742359
+                },
+                {
+                    "instanceId": "sparrow_1788625783319_124",
+                    "animalId": "sparrow",
+                    "rarity": "common",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788625783319
+                },
+                {
+                    "instanceId": "sparrow_1788625905552_512",
+                    "animalId": "sparrow",
+                    "rarity": "common",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788625905552
+                },
+                {
+                    "instanceId": "sparrow_1788626336981_312",
+                    "animalId": "sparrow",
+                    "rarity": "common",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626336981
+                },
+                {
+                    "instanceId": "boar_1788626438523_151",
+                    "animalId": "boar",
+                    "rarity": "uncommon",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626438523
+                },
+                {
+                    "instanceId": "sparrow_1788626451509_682",
+                    "animalId": "sparrow",
+                    "rarity": "common",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626451509
+                },
+                {
+                    "instanceId": "kraken_1788626560207_735",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626560207
+                },
+                {
+                    "instanceId": "kraken_1788626564942_198",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626564942
+                },
+                {
+                    "instanceId": "eagle_1788626571410_461",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626571410
+                },
+                {
+                    "instanceId": "kraken_1788626579408_931",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626579408
+                },
+                {
+                    "instanceId": "griffin_1788626653353_255",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626653353
+                },
+                {
+                    "instanceId": "dragon_1788626658778_295",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626658778
+                },
+                {
+                    "instanceId": "voidwyrm_1788626663933_727",
+                    "animalId": "voidwyrm",
+                    "rarity": "mythic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626663933
+                },
+                {
+                    "instanceId": "griffin_1788626669080_793",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626669080
+                },
+                {
+                    "instanceId": "bear_1788626673355_671",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626673355
+                },
+                {
+                    "instanceId": "phoenix_1788626679410_481",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626679410
+                },
+                {
+                    "instanceId": "phoenix_1788626686048_201",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626686048
+                },
+                {
+                    "instanceId": "bear_1788626725992_716",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626725992
+                },
+                {
+                    "instanceId": "griffin_1788626729279_326",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626729279
+                },
+                {
+                    "instanceId": "phoenix_1788626770011_917",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626770011
+                },
+                {
+                    "instanceId": "griffin_1788626773066_843",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626773066
+                },
+                {
+                    "instanceId": "kraken_1788626775959_825",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626775959
+                },
+                {
+                    "instanceId": "griffin_1788626778980_883",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626778980
+                },
+                {
+                    "instanceId": "kraken_1788626782029_198",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626782029
+                },
+                {
+                    "instanceId": "phoenix_1788626785229_579",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626785229
+                },
+                {
+                    "instanceId": "griffin_1788626788929_103",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626788929
+                },
+                {
+                    "instanceId": "eagle_1788626792486_39",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626792486
+                },
+                {
+                    "instanceId": "phoenix_1788626796788_929",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626796788
+                },
+                {
+                    "instanceId": "kraken_1788626847256_404",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626847256
+                },
+                {
+                    "instanceId": "dragon_1788626849701_855",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626849701
+                },
+                {
+                    "instanceId": "kraken_1788626852703_72",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626852703
+                },
+                {
+                    "instanceId": "griffin_1788626855816_980",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626855816
+                },
+                {
+                    "instanceId": "dragon_1788626858944_438",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626858944
+                },
+                {
+                    "instanceId": "griffin_1788626862956_181",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626862956
+                },
+                {
+                    "instanceId": "phoenix_1788626866288_937",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626866288
+                },
+                {
+                    "instanceId": "dragon_1788626870020_149",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626870020
+                },
+                {
+                    "instanceId": "dragon_1788626874556_358",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626874556
+                },
+                {
+                    "instanceId": "bear_1788626878337_980",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626878337
+                },
+                {
+                    "instanceId": "phoenix_1788626883010_758",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626883010
+                },
+                {
+                    "instanceId": "panther_1788626887351_672",
+                    "animalId": "panther",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626887351
+                },
+                {
+                    "instanceId": "voidwyrm_1788626891642_651",
+                    "animalId": "voidwyrm",
+                    "rarity": "mythic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788626891642
+                },
+                {
+                    "instanceId": "rabbit_1788643471778_589",
+                    "animalId": "rabbit",
+                    "rarity": "common",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788643471778
+                },
+                {
+                    "instanceId": "sparrow_1788655163363_870",
+                    "animalId": "sparrow",
+                    "rarity": "common",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788655163363
+                },
+                {
+                    "instanceId": "phoenix_1788660866318_356",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660866318
+                },
+                {
+                    "instanceId": "eagle_1788660874039_823",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660874039
+                },
+                {
+                    "instanceId": "eagle_1788660883605_83",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660883605
+                },
+                {
+                    "instanceId": "dragon_1788660886632_289",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660886632
+                },
+                {
+                    "instanceId": "kraken_1788660892490_217",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660892490
+                },
+                {
+                    "instanceId": "dragon_1788660896322_293",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660896322
+                },
+                {
+                    "instanceId": "dragon_1788660899794_676",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660899794
+                },
+                {
+                    "instanceId": "griffin_1788660903290_653",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660903290
+                },
+                {
+                    "instanceId": "dragon_1788660908614_511",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660908614
+                },
+                {
+                    "instanceId": "phoenix_1788660912963_867",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660912963
+                },
+                {
+                    "instanceId": "phoenix_1788660917887_865",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660917887
+                },
+                {
+                    "instanceId": "phoenix_1788660922770_362",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660922770
+                },
+                {
+                    "instanceId": "kraken_1788660926628_138",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660926628
+                },
+                {
+                    "instanceId": "eagle_1788660930438_823",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660930438
+                },
+                {
+                    "instanceId": "griffin_1788660934764_573",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660934764
+                },
+                {
+                    "instanceId": "eagle_1788660938278_404",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660938278
+                },
+                {
+                    "instanceId": "phoenix_1788660942525_982",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660942525
+                },
+                {
+                    "instanceId": "dragon_1788660946594_241",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660946594
+                },
+                {
+                    "instanceId": "dragon_1788660951021_876",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660951021
+                },
+                {
+                    "instanceId": "panther_1788660954851_786",
+                    "animalId": "panther",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660954851
+                },
+                {
+                    "instanceId": "griffin_1788660958775_450",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660958775
+                },
+                {
+                    "instanceId": "panther_1788660962352_457",
+                    "animalId": "panther",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660962352
+                },
+                {
+                    "instanceId": "dragon_1788660966226_132",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660966226
+                },
+                {
+                    "instanceId": "eagle_1788660969900_61",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660969900
+                },
+                {
+                    "instanceId": "kraken_1788660974283_964",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660974283
+                },
+                {
+                    "instanceId": "griffin_1788660978050_789",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660978050
+                },
+                {
+                    "instanceId": "griffin_1788660982769_522",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660982769
+                },
+                {
+                    "instanceId": "kraken_1788660986806_945",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660986806
+                },
+                {
+                    "instanceId": "griffin_1788660991002_342",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660991002
+                },
+                {
+                    "instanceId": "dragon_1788660995196_818",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660995196
+                },
+                {
+                    "instanceId": "griffin_1788660998888_845",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788660998888
+                },
+                {
+                    "instanceId": "kraken_1788661003069_892",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661003069
+                },
+                {
+                    "instanceId": "panther_1788661009419_610",
+                    "animalId": "panther",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661009419
+                },
+                {
+                    "instanceId": "dragon_1788661014518_953",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661014518
+                },
+                {
+                    "instanceId": "eagle_1788661018159_331",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661018159
+                },
+                {
+                    "instanceId": "griffin_1788661021796_751",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661021796
+                },
+                {
+                    "instanceId": "phoenix_1788661025202_323",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661025202
+                },
+                {
+                    "instanceId": "eagle_1788661028485_867",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661028485
+                },
+                {
+                    "instanceId": "kraken_1788661032769_608",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661032769
+                },
+                {
+                    "instanceId": "kraken_1788661037915_654",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661037915
+                },
+                {
+                    "instanceId": "panther_1788661042158_849",
+                    "animalId": "panther",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661042158
+                },
+                {
+                    "instanceId": "dragon_1788661046540_730",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661046540
+                },
+                {
+                    "instanceId": "bear_1788661051001_77",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661051001
+                },
+                {
+                    "instanceId": "eagle_1788661067536_754",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661067536
+                },
+                {
+                    "instanceId": "voidwyrm_1788661071629_158",
+                    "animalId": "voidwyrm",
+                    "rarity": "mythic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661071629
+                },
+                {
+                    "instanceId": "phoenix_1788661075266_660",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661075266
+                },
+                {
+                    "instanceId": "eagle_1788661080583_863",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661080583
+                },
+                {
+                    "instanceId": "eagle_1788661084375_344",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661084375
+                },
+                {
+                    "instanceId": "kraken_1788661087822_439",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661087822
+                },
+                {
+                    "instanceId": "bear_1788661093237_366",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661093237
+                },
+                {
+                    "instanceId": "eagle_1788661096917_7",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661096917
+                },
+                {
+                    "instanceId": "kraken_1788661101124_818",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661101124
+                },
+                {
+                    "instanceId": "kraken_1788661104631_107",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661104631
+                },
+                {
+                    "instanceId": "griffin_1788661108018_981",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661108018
+                },
+                {
+                    "instanceId": "phoenix_1788661111297_413",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661111297
+                },
+                {
+                    "instanceId": "panther_1788661114575_706",
+                    "animalId": "panther",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661114575
+                },
+                {
+                    "instanceId": "bear_1788661119295_54",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661119295
+                },
+                {
+                    "instanceId": "kraken_1788661123536_550",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661123536
+                },
+                {
+                    "instanceId": "eagle_1788661127730_665",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661127730
+                },
+                {
+                    "instanceId": "griffin_1788661132086_802",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661132086
+                },
+                {
+                    "instanceId": "dragon_1788661136089_615",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661136089
+                },
+                {
+                    "instanceId": "bear_1788661140121_550",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661140121
+                },
+                {
+                    "instanceId": "bear_1788661144055_685",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661144055
+                },
+                {
+                    "instanceId": "phoenix_1788661148499_599",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661148499
+                },
+                {
+                    "instanceId": "dragon_1788661152730_657",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661152730
+                },
+                {
+                    "instanceId": "kraken_1788661156790_289",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661156790
+                },
+                {
+                    "instanceId": "griffin_1788661161075_761",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661161075
+                },
+                {
+                    "instanceId": "griffin_1788661166743_203",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661166743
+                },
+                {
+                    "instanceId": "kraken_1788661170517_735",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661170517
+                },
+                {
+                    "instanceId": "griffin_1788661174492_619",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661174492
+                },
+                {
+                    "instanceId": "kraken_1788661178075_900",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661178075
+                },
+                {
+                    "instanceId": "bear_1788661181530_890",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661181530
+                },
+                {
+                    "instanceId": "panther_1788661186172_165",
+                    "animalId": "panther",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661186172
+                },
+                {
+                    "instanceId": "phoenix_1788661191038_609",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661191038
+                },
+                {
+                    "instanceId": "panther_1788661194193_565",
+                    "animalId": "panther",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661194193
+                },
+                {
+                    "instanceId": "kraken_1788661197873_64",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661197873
+                },
+                {
+                    "instanceId": "bear_1788661201307_129",
+                    "animalId": "bear",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661201307
+                },
+                {
+                    "instanceId": "dragon_1788661205450_254",
+                    "animalId": "dragon",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661205450
+                },
+                {
+                    "instanceId": "griffin_1788661209820_289",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661209820
+                },
+                {
+                    "instanceId": "panther_1788661214081_285",
+                    "animalId": "panther",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661214081
+                },
+                {
+                    "instanceId": "kraken_1788661217531_411",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661217531
+                },
+                {
+                    "instanceId": "eagle_1788661221934_180",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661221934
+                },
+                {
+                    "instanceId": "panther_1788661225557_155",
+                    "animalId": "panther",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661225557
+                },
+                {
+                    "instanceId": "phoenix_1788661230152_348",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661230152
+                },
+                {
+                    "instanceId": "phoenix_1788661233741_189",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661233741
+                },
+                {
+                    "instanceId": "kraken_1788661236917_453",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661236917
+                },
+                {
+                    "instanceId": "phoenix_1788661240169_237",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661240169
+                },
+                {
+                    "instanceId": "phoenix_1788661243650_523",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661243650
+                },
+                {
+                    "instanceId": "griffin_1788661247144_96",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661247144
+                },
+                {
+                    "instanceId": "griffin_1788661251120_679",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661251120
+                },
+                {
+                    "instanceId": "kraken_1788661254384_86",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661254384
+                },
+                {
+                    "instanceId": "eagle_1788661257469_764",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661257469
+                },
+                {
+                    "instanceId": "griffin_1788661260719_767",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661260719
+                },
+                {
+                    "instanceId": "phoenix_1788661264636_316",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661264636
+                },
+                {
+                    "instanceId": "kraken_1788661268028_55",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661268028
+                },
+                {
+                    "instanceId": "kraken_1788661271286_944",
+                    "animalId": "kraken",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661271286
+                },
+                {
+                    "instanceId": "eagle_1788661274900_729",
+                    "animalId": "eagle",
+                    "rarity": "rare",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661274900
+                },
+                {
+                    "instanceId": "griffin_1788661281067_151",
+                    "animalId": "griffin",
+                    "rarity": "epic",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661281067
+                },
+                {
+                    "instanceId": "phoenix_1788661284877_713",
+                    "animalId": "phoenix",
+                    "rarity": "legendary",
+                    "level": 1,
+                    "xp": 0,
+                    "caughtAt": 1788661284877
+                }
+            ],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "2026-09-11",
+                "list": [
+                    {
+                        "type": "play_game",
+                        "label": "Mainkan game apapun",
+                        "progress": 5,
+                        "target": 5,
+                        "reward": 800,
+                        "claimed": false
+                    },
+                    {
+                        "type": "battle",
+                        "label": "Menangkan battle",
+                        "progress": 0,
+                        "target": 2,
+                        "reward": 1800,
+                        "claimed": false
+                    },
+                    {
+                        "type": "earn_coins",
+                        "label": "Dapatkan coin dari aktivitas apapun",
+                        "progress": 0,
+                        "target": 5694,
+                        "reward": 1000,
+                        "claimed": false
+                    }
+                ],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 3,
+                "losses": 4
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 33,
+                "cratesOpened": 138
+            }
+        },
+        "1505804077593002064": {
+            "balance": 20858998,
+            "bank": 99963860008,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 214,
+            "level": 14,
+            "lastMessageXp": 1789553141070,
+            "gambling": {
+                "wins": 14,
+                "losses": 16,
+                "gamesPlayed": 30,
+                "totalWagered": 269370000
+            },
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "2026-09-11",
+                "list": [
+                    {
+                        "type": "hunt",
+                        "label": "Lakukan hunting",
+                        "progress": 0,
+                        "target": 2,
+                        "reward": 700,
+                        "claimed": false
+                    },
+                    {
+                        "type": "play_game",
+                        "label": "Mainkan game apapun",
+                        "progress": 2,
+                        "target": 5,
+                        "reward": 800,
+                        "claimed": false
+                    },
+                    {
+                        "type": "battle",
+                        "label": "Menangkan battle",
+                        "progress": 0,
+                        "target": 1,
+                        "reward": 1800,
+                        "claimed": false
+                    }
+                ],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1406956423522549841": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 179,
+            "level": 4,
+            "lastMessageXp": 1789509975786,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1416234863241068574": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 83,
+            "level": 1,
+            "lastMessageXp": 1788780594638,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1418506986483613746": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 210,
+            "level": 4,
+            "lastMessageXp": 1789524397046,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1491741495324184587": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 130,
+            "level": 3,
+            "lastMessageXp": 1789142283769,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1400262755377872978": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 16,
+            "level": 0,
+            "lastMessageXp": 1788349341255
+        },
+        "1451099922957865082": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 134,
+            "level": 2,
+            "lastMessageXp": 1789553104990,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1536083628365324340": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 312,
+            "level": 9,
+            "lastMessageXp": 1789224942119,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1483476755154075833": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 421,
+            "level": 5,
+            "lastMessageXp": 1788877485182,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1487469567629332745": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 46,
+            "level": 0,
+            "lastMessageXp": 1788367013226
+        },
+        "1086394846522118267": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 272,
+            "level": 3,
+            "lastMessageXp": 1789548548070,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1404497608365445131": {
+            "balance": 3534999,
+            "bank": 0,
+            "lastDaily": 1789114108712,
+            "lastWork": 0,
+            "xp": 1468,
+            "level": 17,
+            "lastMessageXp": 1789553746870,
+            "dailyStreak": 1,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 5,
+                "losses": 7,
+                "gamesPlayed": 12,
+                "totalWagered": 3000500
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "2026-09-11",
+                "list": [
+                    {
+                        "type": "battle",
+                        "label": "Menangkan battle",
+                        "progress": 0,
+                        "target": 2,
+                        "reward": 1800,
+                        "claimed": false
+                    },
+                    {
+                        "type": "earn_coins",
+                        "label": "Dapatkan coin dari aktivitas apapun",
+                        "progress": 500,
+                        "target": 3576,
+                        "reward": 1000,
+                        "claimed": false
+                    },
+                    {
+                        "type": "hunt",
+                        "label": "Lakukan hunting",
+                        "progress": 0,
+                        "target": 4,
+                        "reward": 700,
+                        "claimed": false
+                    }
+                ],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "696882440953921559": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 1789114751517,
+            "lastWork": 0,
+            "xp": 191,
+            "level": 10,
+            "lastMessageXp": 1789566077803,
+            "dailyStreak": 1,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 1,
+                "losses": 1,
+                "gamesPlayed": 2,
+                "totalWagered": 1500
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "2026-09-11",
+                "list": [
+                    {
+                        "type": "use_item",
+                        "label": "Gunakan item dari inventory",
+                        "progress": 0,
+                        "target": 1,
+                        "reward": 600,
+                        "claimed": false
+                    },
+                    {
+                        "type": "hunt",
+                        "label": "Lakukan hunting",
+                        "progress": 0,
+                        "target": 2,
+                        "reward": 700,
+                        "claimed": false
+                    },
+                    {
+                        "type": "win_game",
+                        "label": "Menangkan game apapun",
+                        "progress": 1,
+                        "target": 1,
+                        "reward": 1500,
+                        "claimed": false
+                    }
+                ],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1446872947934363770": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 294,
+            "level": 4,
+            "lastMessageXp": 1789464800987,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1426257354281979964": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 160,
+            "level": 3,
+            "lastMessageXp": 1789114930781,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1495488529826975837": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 22,
+            "level": 0,
+            "lastMessageXp": 1788427174270
+        },
+        "1444854837689716758": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 58,
+            "level": 0,
+            "lastMessageXp": 1789568445705,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1426631765543489576": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 56,
+            "level": 1,
+            "lastMessageXp": 1788703135068,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1420597420852645998": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 77,
+            "level": 0,
+            "lastMessageXp": 1788561432361
+        },
+        "1527677456561999933": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 9,
+            "level": 1,
+            "lastMessageXp": 1788775091351,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "711250994935103521": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 364,
+            "level": 4,
+            "lastMessageXp": 1789561179185,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1544799198296276992": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 230,
+            "level": 3,
+            "lastMessageXp": 1789141955733,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1537513391185330226": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 194,
+            "level": 2,
+            "lastMessageXp": 1788677602380,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "986989305811578890": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 76,
+            "level": 0,
+            "lastMessageXp": 1789263977100,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1523278551304900694": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 63,
+            "level": 0,
+            "lastMessageXp": 1788528723083
+        },
+        "1135581406702075956": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 61,
+            "level": 0,
+            "lastMessageXp": 1788623676305
+        },
+        "1523655658023551090": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 25,
+            "level": 0,
+            "lastMessageXp": 1788528729353
+        },
+        "1363076956446527560": {
+            "balance": 500,
+            "bank": 0,
+            "lastDaily": 1789100437174,
+            "lastWork": 0,
+            "xp": 49,
+            "level": 1,
+            "lastMessageXp": 1789549065963,
+            "dailyStreak": 1,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "2026-09-11",
+                "list": [
+                    {
+                        "type": "hunt",
+                        "label": "Lakukan hunting",
+                        "progress": 0,
+                        "target": 2,
+                        "reward": 700,
+                        "claimed": false
+                    },
+                    {
+                        "type": "earn_coins",
+                        "label": "Dapatkan coin dari aktivitas apapun",
+                        "progress": 500,
+                        "target": 3106,
+                        "reward": 1000,
+                        "claimed": false
+                    },
+                    {
+                        "type": "win_game",
+                        "label": "Menangkan game apapun",
+                        "progress": 0,
+                        "target": 1,
+                        "reward": 1500,
+                        "claimed": false
+                    }
+                ],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1544239265280696332": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 11,
+            "level": 2,
+            "lastMessageXp": 1789541391635,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1420596599335157780": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 77,
+            "level": 0,
+            "lastMessageXp": 1788561783829
+        },
+        "1456340234626404387": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 19,
+            "level": 0,
+            "lastMessageXp": 1788561936294
+        },
+        "1236643015825690664": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 1789043353114,
+            "lastWork": 0,
+            "xp": 22,
+            "level": 1,
+            "lastMessageXp": 1789271525431,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 1,
+                "gamesPlayed": 1,
+                "totalWagered": 50000
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "2026-09-10",
+                "list": [
+                    {
+                        "type": "earn_coins",
+                        "label": "Dapatkan coin dari aktivitas apapun",
+                        "progress": 0,
+                        "target": 4272,
+                        "reward": 1000,
+                        "claimed": false
+                    },
+                    {
+                        "type": "hunt",
+                        "label": "Lakukan hunting",
+                        "progress": 0,
+                        "target": 3,
+                        "reward": 700,
+                        "claimed": false
+                    },
+                    {
+                        "type": "use_item",
+                        "label": "Gunakan item dari inventory",
+                        "progress": 0,
+                        "target": 1,
+                        "reward": 600,
+                        "claimed": false
+                    }
+                ],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1502674088152273036": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 61,
+            "level": 1,
+            "lastMessageXp": 1789523830342,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1461584413186986175": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 61,
+            "level": 0,
+            "lastMessageXp": 1789488357686,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1514691893295058966": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 1789479711768,
+            "lastWork": 0,
+            "xp": 110,
+            "level": 4,
+            "lastMessageXp": 1789554373751,
+            "dailyStreak": 3,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 3,
+                "gamesPlayed": 3,
+                "totalWagered": 2100
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "2026-09-15",
+                "list": [
+                    {
+                        "type": "play_game",
+                        "label": "Mainkan game apapun",
+                        "progress": 1,
+                        "target": 3,
+                        "reward": 800,
+                        "claimed": false
+                    },
+                    {
+                        "type": "earn_coins",
+                        "label": "Dapatkan coin dari aktivitas apapun",
+                        "progress": 900,
+                        "target": 4863,
+                        "reward": 1000,
+                        "claimed": false
+                    },
+                    {
+                        "type": "win_game",
+                        "label": "Menangkan game apapun",
+                        "progress": 0,
+                        "target": 2,
+                        "reward": 1500,
+                        "claimed": false
+                    }
+                ],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1476224959163531324": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 4,
+            "level": 1,
+            "lastMessageXp": 1789291931740,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1490596259936079884": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 15,
+            "level": 0,
+            "lastMessageXp": 1789263039883,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1532209027952414881": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 122,
+            "level": 2,
+            "lastMessageXp": 1789551540375,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1548667547539210253": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 93,
+            "level": 0,
+            "lastMessageXp": 1789305413650,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1529867487611584553": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 82,
+            "level": 0,
+            "lastMessageXp": 1789402539464,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1501621990774014135": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 107,
+            "level": 3,
+            "lastMessageXp": 1789571253862,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1312797603657679009": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 138,
+            "level": 2,
+            "lastMessageXp": 1789564683890,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "1443804231776862228",
+                "marriedAt": 1789453445034
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1547351362352975914": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 240,
+            "level": 3,
+            "lastMessageXp": 1789553089024,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        },
+        "1549776582514581666": {
+            "balance": 0,
+            "bank": 0,
+            "lastDaily": 0,
+            "lastWork": 0,
+            "xp": 40,
+            "level": 1,
+            "lastMessageXp": 1789567313601,
+            "dailyStreak": 0,
+            "lastWeekly": 0,
+            "gambling": {
+                "wins": 0,
+                "losses": 0,
+                "gamesPlayed": 0,
+                "totalWagered": 0
+            },
+            "inventory": {},
+            "animals": [],
+            "pets": [],
+            "activePetId": "",
+            "weapons": [],
+            "equippedWeaponId": "",
+            "achievementsClaimed": [],
+            "badges": [],
+            "quests": {
+                "date": "",
+                "list": [],
+                "rerollsUsed": 0
+            },
+            "battle": {
+                "wins": 0,
+                "losses": 0
+            },
+            "marriage": {
+                "partnerId": "",
+                "marriedAt": 0
+            },
+            "stats": {
+                "huntCount": 0,
+                "cratesOpened": 0
+            }
+        }
+    },
+    "blacklist": [],
+    "warnings": {},
+    "tickets": {},
+    "reminders": [],
+    "afk": {},
+    "stats": {
+        "commandsUsed": 616,
+        "startedAt": 1788323587692
+    },
+    "lottery": {
+        "date": "2026-09-06",
+        "pot": 55000,
+        "tickets": {
+            "1505804077593002064": 110
+        },
+        "lastWinnerId": "1435170491953582154",
+        "lastPot": 500
+    }
+}

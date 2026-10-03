@@ -1,0 +1,29 @@
+{
+  "name": "@workspace/discord-bot",
+  "version": "4.0.0-preview.1",
+  "description": "Zeechei Bot - All-in-one Discord Bot (moderation, economy, leveling, ticket, games, dsb)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node scripts/start.js",
+    "test": "node --require ./tests/isolate.cjs --test tests/*.test.cjs",
+    "check": "node scripts/check.js",
+    "db:migrate": "node database/migration/migrateLegacy.js",
+    "db:validate": "node database/migration/validateMigration.js",
+    "start:web": "node web/index.js"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.53",
+    "@supabase/supabase-js": "2.99.2",
+    "discord.js": "^14.27.0",
+    "shoukaku": "4.3.0",
+    "zod": "4.6.5"
+  },
+  "engines": {
+    "node": ">=20.12.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
+    "prettier": "3.9.9"
+  }
+}

@@ -1,0 +1,9 @@
+node_modules/
+cookies.txt
+*.log
+.env
+.env.*
+!.env.example
+database/legacy/*.json
+database/*.tmp
+coverage/

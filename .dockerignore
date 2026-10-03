@@ -1,0 +1,9 @@
+.git
+node_modules
+.env
+.env.*
+database/database.json
+database/legacy/*.json
+database/*.tmp
+tests
+coverage

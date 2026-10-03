@@ -1,0 +1,110 @@
+{
+    "guilds": {
+        "columns": ["id"],
+        "keys": ["id"]
+    },
+    "users": {
+        "columns": ["id"],
+        "keys": ["id"]
+    },
+    "guild_settings": {
+        "columns": ["guild_id", "data"],
+        "keys": ["guild_id"]
+    },
+    "user_profiles": {
+        "columns": ["user_id", "data"],
+        "keys": ["user_id"]
+    },
+    "user_economy": {
+        "columns": ["user_id", "balance", "bank", "data"],
+        "keys": ["user_id"]
+    },
+    "user_inventory": {
+        "columns": ["user_id", "item_id", "quantity"],
+        "keys": ["user_id", "item_id"]
+    },
+    "user_animals": {
+        "columns": ["id", "user_id", "data"],
+        "keys": ["id"]
+    },
+    "user_pets": {
+        "columns": ["id", "user_id", "data"],
+        "keys": ["id"]
+    },
+    "user_weapons": {
+        "columns": ["id", "user_id", "data"],
+        "keys": ["id"]
+    },
+    "user_music_favorites": {
+        "columns": ["id", "user_id", "data"],
+        "keys": ["id"]
+    },
+    "user_quests": {
+        "columns": ["user_id", "data"],
+        "keys": ["user_id"]
+    },
+    "user_statistics": {
+        "columns": ["user_id", "data"],
+        "keys": ["user_id"]
+    },
+    "user_achievements": {
+        "columns": ["user_id", "achievement_id"],
+        "keys": ["user_id", "achievement_id"]
+    },
+    "user_marriages": {
+        "columns": ["user_id", "partner_id", "data"],
+        "keys": ["user_id"]
+    },
+    "user_music_playlists": {
+        "columns": ["user_id", "name", "data"],
+        "keys": ["user_id", "name"]
+    },
+    "moderation_cases": {
+        "columns": ["id", "guild_id", "data"],
+        "keys": ["id"]
+    },
+    "guild_music_panels": {
+        "columns": ["guild_id", "channel_id", "message_id", "theme", "enabled"],
+        "keys": ["guild_id"]
+    },
+    "guild_music_history": {
+        "columns": ["id", "guild_id", "data"],
+        "keys": ["id"]
+    },
+    "guild_reaction_roles": {
+        "columns": ["id", "guild_id", "data"],
+        "keys": ["id"]
+    },
+    "guild_bosses": {
+        "columns": ["guild_id", "data"],
+        "keys": ["guild_id"]
+    },
+    "warnings": {
+        "columns": ["id", "guild_id", "user_id", "data"],
+        "keys": ["id"]
+    },
+    "tickets": {
+        "columns": ["id", "data"],
+        "keys": ["id"]
+    },
+    "reminders": {
+        "columns": ["id", "data"],
+        "keys": ["id"]
+    },
+    "bot_statistics": {
+        "columns": ["id", "data"],
+        "keys": ["id"]
+    },
+    "lottery_rounds": {
+        "columns": ["id", "data"],
+        "keys": ["id"]
+    },
+    "afk_users": {
+        "columns": ["user_id", "data"],
+        "keys": ["user_id"]
+    },
+    "blacklist": {
+        "columns": ["user_id"],
+        "keys": ["user_id"]
+    }
+}
