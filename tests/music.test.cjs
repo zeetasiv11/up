@@ -181,3 +181,20 @@ test("volume modal rechecks current voice membership before changing playback", 
     assert.equal(changed, false);
     assert.equal(reply.ephemeral, true);
 });
+
+test("panel coalesces rapid requests and reads the active player after channel fetches", async () => {
+    let current = queue(), created = 0, payload;
+    const channel = { id: "channel", guildId: "guild", isTextBased: () => true,
+        send: async value => { created++; payload = value; return { id: "panel", channelId: "channel", author: { id: "bot" } }; } };
+    current.textChannel = channel;
+    const client = { user: { id: "bot" }, music: { getQueue: () => current } };
+    const updater = new MusicPanelUpdater(client, { getGuild: () => ({}), updateGuild() {} }, silent);
+    const old = current;
+    const pending = updater.update(old);
+    current = { ...current, volume: 15, songs: [current.songs[2]] };
+    current.songs[0] = { ...current.songs[0], name: "Actual active track" };
+    await Promise.all([pending, updater.update(old), updater.update(old)]);
+    assert.equal(created, 1);
+    assert.equal(payload.embeds[0].data.title, "Actual active track");
+    assert.match(payload.embeds[0].data.description, /15%/);
+});

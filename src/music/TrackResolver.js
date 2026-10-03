@@ -37,12 +37,13 @@ function identifier(input) {
     return `${source}:${value}`;
 }
 async function resolve(manager, input) {
+    const query = identifier(input);
     const node = manager.getIdealNode();
     if (!node) throw new Error("Music node sedang tidak tersedia. Coba lagi sebentar.");
-    const result = await node.rest.resolve(identifier(input));
+    const result = await node.rest.resolve(query);
     if (!result || ["empty", "error"].includes(result.loadType))
         throw new Error("Lagu tidak ditemukan atau source belum tersedia di node.");
-    return {
+    const resolved = {
         type: result.loadType,
         tracks:
             result.loadType === "track"
@@ -52,5 +53,24 @@ async function resolve(manager, input) {
                   : result.data,
         name: result.loadType === "playlist" ? result.data.info.name : null,
     };
+    validateTracks(resolved.tracks);
+    return resolved;
 }
-module.exports = { identifier, resolve };
+function validateTracks(tracks) {
+    if (
+        !Array.isArray(tracks) ||
+        !tracks.length ||
+        tracks.some(
+            (track) =>
+                !track ||
+                typeof track.encoded !== "string" ||
+                !track.encoded ||
+                typeof track.info?.title !== "string" ||
+                typeof track.info?.author !== "string" ||
+                !Number.isFinite(track.info?.length) ||
+                track.info.length < 0,
+        )
+    )
+        throw new Error("Lagu tidak ditemukan atau data track tidak valid.");
+}
+module.exports = { identifier, resolve, validateTracks };

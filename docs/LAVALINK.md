@@ -40,8 +40,8 @@ node scripts/music-health.js
 ```
 
 This checks `/v4/info` and prints version/source/filter/plugin capabilities without
-secrets. It does not prove Discord voice/audio delivery. `/play` query searches show
-up to five selectable results; URLs and playlists are enqueued in one operation.
+secrets. It does not prove Discord voice/audio delivery. `/play` query searches play the first valid result immediately; URLs and playlists
+are enqueued in one operation. Dashboard searches retain their result-selection UI.
 Queue modifications are isolated per guild. Playback actions await node responses.
 
 Bassboost/pop/treble use equalizer, nightcore/vaporwave use timescale, 8D/rotation
@@ -54,10 +54,15 @@ If a shared node rejects the optional session-resume setting with HTTP 403,
 the bot records a warning and uses library-side recovery; playback authorization
 failures still propagate. Seamless server-side resume is unavailable on that node.
 Node source/filter capabilities are fetched before restoring saved player settings.
-The client reconnects
-with bounded automatic reconnect attempts. Queue state survives a transient node
-connection interruption while this bot process is alive. Voice guard retries
-forced voice disconnects when enabled. Queue, position, volume, loop, autoplay, pause and filter snapshots are persisted
-and restored on node ready after process restart when younger than 24 hours.
+Shoukaku owns node reconnection, with bounded automatic reconnect attempts and
+library/server resumption. Queue state survives transient node interruption while
+this process is alive. MusicManager exclusively owns recovery after a Discord
+voice disconnect, with one pending recovery per guild and at most five attempts.
+Only explicitly enabled 24/7 or voice guard may recover or join on startup.
+Stop/leave cancels pending recovery, including an in-progress join, and saves a
+suspension marker. Another explicit play/guard request resumes the lifecycle.
+Queue, position, volume, loop, autoplay, pause and filter snapshots are persisted;
+playback snapshots younger than 24 hours restore only in persistent modes.
 Encoded tracks can expire or become incompatible after a node/plugin upgrade;
-restoration is best effort. Persistent panel message recovery is also implemented. Live reconnect/audio verification is still needed.
+restoration remains best effort. See [music lifecycle](MUSIC_LIFECYCLE.md) for
+ownership, Shoukaku event names, and verification boundaries.

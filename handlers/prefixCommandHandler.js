@@ -126,7 +126,9 @@ async function handlePrefixMessage(message) {
 
     try {
         require("../src/bot/middleware/persistenceBarrier").persistenceBarrier(message, ["reply"]);
-        await command.execute(message, parsed.args);
+        await (command.category === "music" && message.client.music
+            ? message.client.music.withMember(message.member, () => command.execute(message, parsed.args))
+            : command.execute(message, parsed.args));
     } catch (err) {
         logger.error(`[COMMAND] Error menjalankan z${parsed.commandName}: ${err.stack || err.message}`);
         await message.reply({ embeds: [createErrorEmbed("Terjadi kesalahan saat menjalankan command ini.")] }).catch(() => {});

@@ -1,89 +1,7 @@
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
-const { EventEmitter } = require("node:events");
-const { MusicManager } = require("../src/music/MusicManager.js");
 const { identifier } = require("../src/music/TrackResolver.js");
-const { silent } = require("./helpers.cjs");
-const track = (n) => ({
-    encoded: `encoded-${n}`,
-    info: {
-        title: `Track ${n}`,
-        author: "Artist",
-        uri: `https://youtube.com/watch?v=${n}`,
-        length: 240000,
-        isStream: false,
-        sourceName: "youtube",
-    },
-});
-function fixture() {
-    const node = {
-        info: {
-            filters: [
-                "equalizer",
-                "timescale",
-                "rotation",
-                "karaoke",
-                "tremolo",
-                "vibrato",
-                "lowPass",
-                "distortion",
-            ],
-        },
-        rest: { resolve: async () => ({ loadType: "search", data: [track(1), track(2), track(3)] }) },
-    };
-    const players = new Map();
-    const lavalink = {
-        nodes: new Map(),
-        getIdealNode: () => node,
-        joinVoiceChannel: async ({ guildId }) => {
-            const player = Object.assign(new EventEmitter(), {
-                node,
-                position: 0,
-                paused: false,
-                playTrack: async (options) => {
-                    player.track = options.track.encoded;
-                    player.position = 0;
-                },
-                stopTrack: async () => {
-                    player.track = null;
-                },
-                setGlobalVolume: async (value) => {
-                    player.volume = value;
-                },
-                setPaused: async (value) => {
-                    player.paused = value;
-                },
-                seekTo: async (value) => {
-                    player.position = value;
-                },
-                setFilters: async (value) => {
-                    player.filters = value;
-                },
-            });
-            players.set(guildId, player);
-            return player;
-        },
-        leaveVoiceChannel: async (id) => {
-            players.delete(id);
-        },
-    };
-    const manager = new MusicManager({
-        client: {},
-        lavalink,
-        panels: { update: async () => {} },
-        settings: { music: { defaultVolume: 72, maxQueueSize: 3, leaveOnFinish: false } },
-        repository: { getGuild: () => ({ musicMode247: false }) },
-        history() {},
-        logger: silent,
-    });
-    const voice = (guildId) => ({
-        id: `voice-${guildId}`,
-        guild: { id: guildId, shardId: 0, members: { me: {} } },
-        permissionsFor: () => ({ has: () => true }),
-    });
-    const member = (channel) => ({ voice: { channel }, user: { id: "requester", username: "listener" } });
-    return { manager, players, voice, member, node };
-}
+const { fixture, track } = require("./music-fixture.cjs");
 
 test("Lavalink queue isolates guilds, enforces queue size and voice channel, awaits playback controls", async () => {
     const { manager, players, voice, member } = fixture(),
@@ -122,16 +40,16 @@ test("loop, autoplay and stale end events use the current queue", async () => {
     try {
         await manager.enqueue(channel, [track(1), track(2)], { member: member(channel) });
         const queue = manager.getQueue("a");
-        queue.setRepeatMode(1);
+        await queue.setRepeatMode(1);
         await manager.run("a", () => queue.advance());
         assert.equal(queue.songs.length, 2);
-        queue.setRepeatMode(2);
+        await queue.setRepeatMode(2);
         await manager.run("a", () => queue.advance());
         assert.equal(queue.songs[0].name, "Track 2");
         players.get("a").emit("end", { reason: "finished", track: track(1) });
         await manager.run("a", async () => {});
         assert.equal(queue.songs[0].name, "Track 2");
-        queue.setRepeatMode(0);
+        await queue.setRepeatMode(0);
         queue.autoplay = true;
         await queue.skip();
         await queue.skip();
@@ -193,10 +111,12 @@ test("saved player restores queue, position and pause state without mixing guild
         await queue.seek(40);
         await queue.pause();
         const saved = structuredClone(data.restore.musicState);
+        data.restore.musicMode247 = true;
         manager.closing = true;
         await manager.leave("restore");
         manager.closing = false;
         data.restore.musicState = saved;
+        manager.suspended.clear();
         await manager.restorePlayers();
         const restored = manager.getQueue("restore");
         assert.equal(restored.songs.length, 2);

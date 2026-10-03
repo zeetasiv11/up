@@ -37,6 +37,7 @@ module.exports = {
         }
 
         db.updateGuild(interaction.guildId, { musicMode247: enable });
+        interaction.client.music?.policyChanged(interaction.guildId);
 
         return interaction.reply({
             embeds: [

@@ -6,6 +6,7 @@ const { createErrorEmbed } = require("./embeds.js");
  * voice channel) memastikan user berada di voice channel yang sama dengan bot.
  */
 function checkVoiceChannel(interaction) {
+    if (!interaction.guildId || !interaction.member) return { ok: false, reason: "Gunakan music di dalam server." };
     const queue = interaction.client.distube?.getQueue(interaction.guildId);
     const memberVoice = interaction.member?.voice?.channel;
     const djRole = settings.music.djRoleId;
@@ -19,6 +20,12 @@ function checkVoiceChannel(interaction) {
         return { ok: false, reason: `Kamu harus berada di voice channel yang sama dengan bot: <#${queue.voiceChannel.id}>` };
     }
 
+    const botVoice = interaction.guild?.members?.me?.voice;
+    if (queue && botVoice && botVoice.channelId !== queue.voiceChannel.id &&
+        !(queue.recovering && !botVoice.channelId))
+        return { ok: false, reason: "Koneksi voice bot berubah. Gunakan /play lagi." };
+    if (!memberVoice.permissionsFor?.(interaction.guild?.members?.me)?.has(["Connect", "Speak"]))
+        return { ok: false, reason: "Bot membutuhkan izin Connect dan Speak." };
     return { ok: true, queue, memberVoice };
 }
 

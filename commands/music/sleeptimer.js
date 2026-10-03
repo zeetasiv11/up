@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require("discord.js");
-const settings = require("../../settings.js");
 const { createErrorEmbed, createInfoEmbed, createSuccessEmbed } = require("../../utils/embeds.js");
 const { checkVoiceChannel, requireQueue } = require("../../utils/musicChecks.js");
 const { setSleepTimer, clearSleepTimer, getSleepTimer, formatRemaining } = require("../../utils/musicFeatures.js");
@@ -55,9 +54,8 @@ module.exports = {
         setSleepTimer(interaction.guildId, minutes, async () => {
             const activeQueue = interaction.client.distube?.getQueue(interaction.guildId);
             if (!activeQueue) return;
-            const voice = activeQueue.voice;
-            await activeQueue.stop();
-            if (settings.music.leaveOnStop) await voice?.leave();
+            await interaction.client.music.withMember(null, () => activeQueue.stop());
+
             await interaction.client.distube?.updateMusicPanel?.(activeQueue, null, "Sleep timer selesai. Musik dihentikan otomatis.");
         });
 

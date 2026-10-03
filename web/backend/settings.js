@@ -183,6 +183,8 @@ function createSettingsService(db, defaults) {
                         Object.assign(db.getGuild(guild.id), before);
                         throw error;
                     }
+                    if (Object.hasOwn(input.patch, "musicMode247"))
+                        guild.client?.music?.policyChanged(guild.id);
                     return this.get(guild.id);
                 });
             locks.set(guild.id, operation);

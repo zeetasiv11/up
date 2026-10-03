@@ -9,7 +9,7 @@ function buildNowPlayingEmbed(queue, song) {
     const emoji = emojiFor(queue);
     const artist = song.uploader?.name || song.artist || "";
     const unavailable = queue.player?.node && queue.player.node.state !== require("shoukaku").Constants.State.CONNECTED;
-    const status = queue.loading ? `${emoji.getLoadingEmoji()} LOADING` : unavailable ? `${emoji.getLoadingEmoji()} RECONNECTING` : queue.paused ? `${emoji.getPauseEmoji()} PAUSED` : `${emoji.getPlayingEmoji()} PLAYING`;
+    const status = (queue.loading || queue.recovering || queue.nodeUnavailable) ? `${emoji.getLoadingEmoji()} LOADING` : unavailable ? `${emoji.getLoadingEmoji()} RECONNECTING` : queue.paused ? `${emoji.getPauseEmoji()} PAUSED` : `${emoji.getPlayingEmoji()} PLAYING`;
     const embed = new EmbedBuilder().setColor(queue.paused ? theme.muted : theme.accent)
         .setAuthor({ name: theme.brand }).setTitle(String(song.name || "Unknown track").slice(0, 256))
         .setDescription(`${status}\n${artist ? `**${text(artist, 180)}**\n\n` : "\n"}` +

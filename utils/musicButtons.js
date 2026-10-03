@@ -23,6 +23,11 @@ function getQueueOrReplyError(interaction) {
 
 /** Member harus di voice channel yang sama dengan bot untuk aksi yang mengubah playback. */
 function memberInSameVoice(interaction, queue) {
+    if (!interaction.guildId || queue.id !== interaction.guildId)
+        return { ok: false, reason: "Panel tidak berada di server player ini." };
+    const botVoice = interaction.guild?.members?.me?.voice;
+    if (botVoice && botVoice.channelId !== queue.voiceChannel.id && !(queue.recovering && !botVoice.channelId))
+        return { ok: false, reason: "Koneksi voice bot berubah. Gunakan /play lagi." };
     const djRole = settings.music.djRoleId;
     if (djRole && !interaction.member?.roles?.cache?.has(djRole) && !interaction.member?.permissions?.has("ManageGuild")) return { ok: false, reason: "Role DJ diperlukan." };
     const memberVoice = interaction.member?.voice?.channel;
@@ -30,6 +35,8 @@ function memberInSameVoice(interaction, queue) {
     if (queue.voiceChannel && queue.voiceChannel.id !== memberVoice.id) {
         return { ok: false, reason: `Kamu harus berada di voice channel yang sama dengan bot: <#${queue.voiceChannel.id}>` };
     }
+    if (memberVoice.permissionsFor && !memberVoice.permissionsFor(interaction.guild?.members?.me)?.has(["Connect", "Speak"]))
+        return { ok: false, reason: "Bot membutuhkan izin Connect dan Speak." };
     return { ok: true };
 }
 
@@ -46,16 +53,13 @@ async function handleMusicButton(interaction, id = interaction.customId) {
     const queue = getQueueOrReplyError(interaction);
     if (!queue) return;
 
-    // Tombol read-only (boleh dipakai siapa saja, tidak perlu di voice channel yang sama).
-    if (id === "music_queue") return sendQueueList(interaction, queue);
-    if (/^music_queue_page:\d+$/.test(id)) return sendQueueList(interaction, queue, Number(id.split(":")[1]), true);
-    if (id === "music_fav") return toggleFavorite(interaction, queue);
-
-    // Tombol yang mengubah playback -> wajib di voice channel yang sama dengan bot.
     const check = memberInSameVoice(interaction, queue);
     if (!check.ok) {
         return respond(interaction, { embeds: [createErrorEmbed(check.reason)], ephemeral: true }).catch(() => {});
     }
+    if (id === "music_queue") return sendQueueList(interaction, queue);
+    if (/^music_queue_page:\d+$/.test(id)) return sendQueueList(interaction, queue, Number(id.split(":")[1]), true);
+    if (id === "music_fav") return toggleFavorite(interaction, queue);
 
     if (id === "music_volume") {
         return interaction.showModal(new ModalBuilder().setCustomId("music_volume_submit").setTitle("Player volume")
@@ -96,23 +100,22 @@ async function handleMusicButton(interaction, id = interaction.customId) {
         }
 
         if (id === "music_loop") {
-            const nextMode = (queue.repeatMode + 1) % 3; // Off -> Lagu Ini -> Semua Antrian -> Off
-            queue.setRepeatMode(nextMode);
+            await queue.setRepeatMode();
             return refreshPanel(interaction, queue);
         }
 
         if (id === "music_volup") {
-            await queue.setVolume(Math.min(150, queue.volume + 10));
+            await queue.adjustVolume(10);
             return refreshPanel(interaction, queue);
         }
 
         if (id === "music_voldown") {
-            await queue.setVolume(Math.max(0, queue.volume - 10));
+            await queue.adjustVolume(-10);
             return refreshPanel(interaction, queue);
         }
 
         if (id === "music_autoplay") {
-            queue.toggleAutoplay();
+            await queue.toggleAutoplay();
             return refreshPanel(interaction, queue);
         }
 
@@ -135,16 +138,13 @@ async function handleMusicButton(interaction, id = interaction.customId) {
         }
 
         if (id === "music_disconnect") {
-            const voice = queue.voice;
-            await queue.stop();
-            await voice?.leave();
+            await queue.stop({ disconnect: true });
             return refreshPanel(interaction, queue);
         }
 
         if (id === "music_stop") {
-            const voice = queue.voice;
             await queue.stop();
-            if (settings.music.leaveOnStop) await voice?.leave();
+
             return refreshPanel(interaction, queue);
         }
     } catch (err) {
@@ -209,6 +209,8 @@ async function handleMusicMoreMenu(interaction) {
     const queue = getQueueOrReplyError(interaction);
     if (!queue) return;
 
+    const check = memberInSameVoice(interaction, queue);
+    if (!check.ok) return interaction.reply({ content: check.reason, ephemeral: true });
     if (value.startsWith("action:")) return handleMusicButton(interaction, `music_${value.slice(7)}`);
     if (value === "favorites") return sendFavoritesList(interaction);
     if (value === "lyrics") return sendLyrics(interaction, queue);

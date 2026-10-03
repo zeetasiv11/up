@@ -16,7 +16,7 @@ module.exports = {
         const queue = await requireQueue(interaction);
         if (!queue) return;
 
-        const enabled = queue.toggleAutoplay();
+        const enabled = await queue.toggleAutoplay();
         await interaction.reply({
             embeds: [
                 createSuccessEmbed(

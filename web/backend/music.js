@@ -39,7 +39,9 @@ function playerState(client, guildId) {
         available: Boolean(client?.music?.lavalink.getIdealNode()),
         status: !queue?.songs.length
             ? "idle"
-            : queue.loading
+            : (queue.recovering || queue.nodeUnavailable)
+              ? "loading"
+              : queue.loading
               ? "loading"
               : queue.paused
                 ? "paused"
@@ -66,6 +68,9 @@ async function musicMember(client, guild, userId) {
     const queue = client.music.getQueue(guild.id);
     const member = await guild.members.fetch(userId);
     if (!member.voice.channelId) throw new HttpError(403, "Join a voice channel in Discord first.");
+    if (guild.members.me?.voice && queue && guild.members.me.voice.channelId !== queue.voiceChannel.id &&
+        !(queue.recovering && !guild.members.me.voice.channelId))
+        throw new HttpError(409, "The bot voice connection changed. Use /play again.");
     if (queue && member.voice.channelId !== queue.voiceChannel.id)
         throw new HttpError(403, "Join the player’s voice channel to control music.");
     const djRole = client.music.settings.music.djRoleId;
@@ -74,16 +79,19 @@ async function musicMember(client, guild, userId) {
     return member;
 }
 async function control(client, guild, userId, body) {
-    const { action, value } = actions.parse(body);
     const member = await musicMember(client, guild, userId);
+    return client.music.withMember(member, () => applyControl(client, guild, member, body));
+}
+async function applyControl(client, guild, member, body) {
+    const { action, value } = actions.parse(body);
     const queue = client.music.getQueue(guild.id);
-    if (!queue?.songs.length) throw new HttpError(409, "Nothing is playing. Add a track first.");
+    if (!queue || (!queue.songs.length && action !== "stop")) throw new HttpError(409, "Nothing is playing. Add a track first.");
     if (member.voice.channelId !== queue.voiceChannel.id)
         throw new HttpError(403, "Join the player’s voice channel to control music.");
     if (["pause", "resume", "skip", "previous", "stop", "shuffle", "toggleAutoplay"].includes(action))
         await queue[action]();
-    else if (action === "autoplay") queue.toggleAutoplay();
-    else if (action === "loop") queue.setRepeatMode((queue.repeatMode + 1) % 3);
+    else if (action === "autoplay") await queue.toggleAutoplay();
+    else if (action === "loop") await queue.setRepeatMode();
     else if (action === "volume") await queue.setVolume(z.number().int().min(0).max(150).parse(value));
     else if (action === "seek") await queue.seek(z.number().min(0).parse(value));
     else if (action === "filter")

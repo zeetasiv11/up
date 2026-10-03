@@ -53,7 +53,9 @@ class AudioFilters {
     async apply(next) {
         let filters = {};
         for (const config of next.values()) filters = { ...filters, ...config };
-        await this.queue.player.setFilters(filters);
+        await this.queue.updatePlayer({ filters });
+        // The client merges filter objects locally; clearing must replace that cache too.
+        this.queue.player.filters = filters;
         this.active = next;
         await this.queue.manager.notify(this.queue);
     }
@@ -64,23 +66,21 @@ class AudioFilters {
             name === "bassboost" && typeof value === "object"
                 ? { equalizer: equalizer(Math.min(0.5, Math.max(0, Number(value.value)))) }
                 : PRESETS[name];
-        return this.queue.manager.run(this.queue.id, () =>
-            this.apply(new Map(this.active).set(name, config)),
-        );
+        return this.queue.run(() => this.apply(new Map(this.active).set(name, config)));
     }
     set(name) {
         if (!this.supports(name)) return Promise.reject(new Error("Efek tidak didukung node ini."));
-        return this.queue.manager.run(this.queue.id, () => this.apply(new Map([[name, PRESETS[name]]])));
+        return this.queue.run(() => this.apply(new Map([[name, PRESETS[name]]])));
     }
     remove(name) {
-        return this.queue.manager.run(this.queue.id, () => {
+        return this.queue.run(() => {
             const next = new Map(this.active);
             next.delete(name);
             return this.apply(next);
         });
     }
     clear() {
-        return this.queue.manager.run(this.queue.id, () => this.apply(new Map()));
+        return this.queue.run(() => this.apply(new Map()));
     }
 }
 module.exports = { AudioFilters, PRESETS };

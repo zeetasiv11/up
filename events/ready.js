@@ -3,7 +3,6 @@ const settings = require("../settings.js");
 const logger = require("../utils/logger.js");
 const { registerCommands } = require("../handlers/commandHandler.js");
 const db = require("../utils/database.js");
-const { startGuard } = require("../utils/voiceGuard.js");
 
 function buildActivity(client, statusConfig) {
     const text = statusConfig.text
@@ -55,29 +54,6 @@ module.exports = {
 
         await registerCommands(client);
         startStatusRotation(client);
-        await restoreVoiceGuards(client);
         await client.distube?.restoreMusicPanels?.();
     }
 };
-
-/**
- * Setiap bot restart (crash, redeploy, dsb), guild yang punya /vcguard aktif
- * otomatis di-rejoin lagi supaya bot bisa "jaga" voice channel berhari-hari
- * tanpa perlu command manual ulang tiap kali proses node-nya restart.
- */
-async function restoreVoiceGuards(client) {
-    const database = db.getDB();
-    for (const [guildId, guildData] of Object.entries(database.guilds || {})) {
-        if (!guildData.vcGuard?.enabled || !guildData.vcGuard.channelId) continue;
-
-        const guild = client.guilds.cache.get(guildId);
-        if (!guild) continue;
-
-        try {
-            await startGuard(guild, guildData.vcGuard.channelId, guildData.vcGuard.textChannelId);
-            logger.info(`[VC-GUARD] Restore guard guild ${guildId} -> channel ${guildData.vcGuard.channelId}`);
-        } catch (err) {
-            logger.error(`[VC-GUARD] Gagal restore guard guild ${guildId} saat startup: ${err.message}`);
-        }
-    }
-}

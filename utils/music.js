@@ -23,27 +23,42 @@ function setupMusic(client) {
     });
     music.lavalink.on("ready", (name) => {
         void restoreNode(music, name, client, db, logger).catch((error) =>
-            logger.error(`Player restore: ${error.message}`),
+            logger.warn("[PLAYER] Node restoration failed"),
         );
     });
+    music.lavalink.on("close", (name) => music.nodeUnavailable(name));
+    music.lavalink.on("voiceUpdateFailed", (guildId) => music.handleVoiceDisconnect(guildId));
     client.music = music;
+    require("./voiceGuard.js").bindMusic(music);
     // Compatibility facade for existing command modules; no DisTube engine remains.
     client.distube = music;
     client.on("guildDelete", (guild) => {
-        music.leave(guild.id).catch((error) => logger.error(error.message));
+        void Promise.resolve()
+            .then(() => music.leave(guild.id))
+            .catch(() => logger.warn("[VOICE] Guild cleanup failed"));
         panels.forget(guild.id);
     });
     client.on("messageDelete", (message) => {
         if (panels.panels.get(message.guildId)?.id === message.id) panels.forget(message.guildId);
     });
     client.on("voiceStateUpdate", (oldState, nextState) => {
-        if (nextState.id === client.user?.id && oldState.channelId && !nextState.channelId) {
-            require("./voiceGuard.js").scheduleReconnect(nextState.guild);
-        }
-        const queue = music.getQueue(nextState.guild.id);
-        if (!queue || is247Enabled(queue.id) || !settings.music.leaveOnEmpty) return;
-        if (queue.voiceChannel.members.filter((member) => !member.user.bot).size === 0) {
-            music.leave(queue.id).catch((error) => logger.error(error.message));
+        if (music.closing) return;
+        try {
+            const guildId = nextState.guild.id;
+            if (nextState.id === client.user?.id) {
+                if (oldState.channelId && !nextState.channelId) music.handleVoiceDisconnect(guildId);
+                else if (nextState.channelId) {
+                    const queue = music.getQueue(guildId);
+                    if (queue && nextState.channel) {
+                        queue.voiceChannel = nextState.channel;
+                        queue.voice.channel = nextState.channel;
+                        void music.notify(queue).catch(() => {});
+                    }
+                }
+            }
+            music.checkEmpty(guildId);
+        } catch {
+            logger.warn("[VOICE] Voice state handling failed");
         }
     });
     return music;
@@ -54,17 +69,10 @@ async function restoreNode(music, name, client, db, logger) {
     try {
         node.info = await node.rest.getLavalinkInfo();
     } catch (error) {
-        logger.warn(`Lavalink capabilities unavailable: ${error.message}`);
+        logger.warn("[LAVALINK] Capabilities unavailable");
     }
     if (music.closing) return;
-    await music.restorePlayers();
-    for (const [guildId, config] of Object.entries(db.getDB().guilds)) {
-        const guild = client.guilds.cache.get(guildId);
-        if (guild && config.vcGuard?.enabled && !music.getQueue(guildId)) {
-            require("./voiceGuard.js")
-                .startGuard(guild, config.vcGuard.channelId, config.vcGuard.textChannelId)
-                .catch((error) => logger.warn(`Voice guard restore: ${error.message}`));
-        }
-    }
+    if (music.reconcileNode) await music.reconcileNode();
+    else await music.restorePlayers();
 }
 module.exports = { setupMusic, restoreNode, ...format, is247Enabled };

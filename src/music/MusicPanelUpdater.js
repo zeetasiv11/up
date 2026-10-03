@@ -6,28 +6,38 @@ class MusicPanelUpdater {
         this.repository = repository;
         this.logger = logger;
         this.panels = new Map();
-        this.locks = new Map();
         this.signatures = new Map();
+        this.pending = new Map();
     }
     async update(queue, song = queue?.songs?.[0], reason) {
         const guildId = queue?.id || queue?.textChannel?.guildId;
         if (!guildId) return null;
-        const previous = this.locks.get(guildId) || Promise.resolve();
-        const current = previous.catch(() => {}).then(() => this.write(guildId, queue, song, reason));
-        this.locks.set(guildId, current);
-        try {
-            return await current;
-        } catch (error) {
-            this.logger.error(`Music panel update failed (${guildId}): ${error.message}`);
-            return null;
-        } finally {
-            if (this.locks.get(guildId) === current) this.locks.delete(guildId);
+        let pending = this.pending.get(guildId);
+        if (pending) {
+            Object.assign(pending, { queue, song, reason, dirty: true });
+            return pending.promise;
         }
+        pending = { queue, song, reason, dirty: true };
+        this.pending.set(guildId, pending);
+        pending.promise = (async () => {
+            let panel;
+            do {
+                await new Promise((resolve) => setTimeout(resolve, 250));
+                pending.dirty = false;
+                try {
+                    panel = await this.write(guildId, pending.queue, pending.song, pending.reason);
+                } catch (error) {
+                    this.logger.warn(`[PANEL] Update failed (${guildId}, code ${error.code || "unknown"})`);
+                }
+            } while (pending.dirty);
+            return panel || null;
+        })().finally(() => this.pending.delete(guildId));
+        return pending.promise;
     }
     async write(guildId, queue, song, reason) {
         const saved = this.repository.getGuild(guildId).musicPanel;
         let panel = this.panels.get(guildId),
-            channel = queue?.textChannel;
+            channel = queue?.textChannel || panel?.channel;
         if (!panel && saved?.channelId) {
             try {
                 channel = await this.client.channels.fetch(saved.channelId);
@@ -47,6 +57,11 @@ class MusicPanelUpdater {
         if (channel?.guildId !== guildId)
             throw new Error("Music panel channel does not belong to this guild");
         if (!channel?.isTextBased?.()) return null;
+        // Read authoritative state after Discord fetches and debounce, never a captured old song.
+        if (this.client.music) {
+            queue = this.client.music.getQueue(guildId);
+            song = queue?.songs[0];
+        } else if (song !== null) song = queue?.songs?.[0];
         const payload = {
             embeds: [song ? buildNowPlayingEmbed(queue, song) : buildIdleMusicEmbed(reason)],
             components: buildControlRows(song ? queue : null),
@@ -76,6 +91,8 @@ class MusicPanelUpdater {
         }
         if (!panel) {
             panel = await channel.send(payload);
+            // Keep the message identity even when persistence is temporarily unavailable.
+            this.panels.set(guildId, panel);
             this.repository.updateGuild(guildId, {
                 musicPanel: { channelId: panel.channelId, messageId: panel.id },
             });
@@ -83,6 +100,7 @@ class MusicPanelUpdater {
         await this.repository.flush?.();
         this.panels.set(guildId, panel);
         this.signatures.set(guildId, signature);
+        this.logger.info(`[PANEL] State updated (${guildId})`);
         return panel;
     }
     forget(guildId) {
@@ -91,7 +109,8 @@ class MusicPanelUpdater {
     }
     async restore() {
         for (const [id, config] of Object.entries(this.repository.getDB().guilds)) {
-            if (config.musicPanel && this.client.guilds.cache.has(id)) await this.update({ id }, null);
+            if (config.musicPanel && this.client.guilds.cache.has(id))
+                await this.update(this.client.music?.getQueue(id) || { id });
         }
     }
 }

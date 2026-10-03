@@ -16,23 +16,25 @@ module.exports = {
     once: false,
     async execute(interaction, client) {
         try {
+            const musicAction = fn => client.music
+                ? client.music.withMember(interaction.member, fn) : fn();
             require("../src/bot/middleware/persistenceBarrier").persistenceBarrier(interaction);
             const denied = require("../src/bot/middleware/accessPolicy.js").accessError(interaction.user.id, interaction.guildId);
             if (denied) return await interaction.reply({ embeds: [createErrorEmbed(denied)], ephemeral: true });
             if (!interaction.guildId) return await interaction.reply({ content: "Gunakan bot di dalam server.", ephemeral: true });
             // ---------- BUTTON ----------
             if (interaction.isButton()) {
-                return await handleButton(interaction, client);
+                return await musicAction(() => handleButton(interaction, client));
             }
 
             // ---------- SELECT MENU ----------
             if (interaction.isStringSelectMenu()) {
-                return await handleSelectMenu(interaction, client);
+                return await musicAction(() => handleSelectMenu(interaction, client));
             }
 
             // ---------- MODAL ----------
             if (interaction.isModalSubmit()) {
-                if (interaction.customId === "music_volume_submit") return await require("../utils/musicButtons.js").handleMusicModal(interaction);
+                if (interaction.customId === "music_volume_submit") return await musicAction(() => require("../utils/musicButtons.js").handleMusicModal(interaction));
                 return; // Modal-modal spesifik ditangani langsung di command yang membuatnya (collector).
             }
 
@@ -80,7 +82,8 @@ module.exports = {
             }
 
             // Execute
-            await command.execute(interaction, client);
+            if (command.category === "music") await musicAction(() => command.execute(interaction, client));
+            else await command.execute(interaction, client);
 
             const database = db.getDB();
             database.stats.commandsUsed = (database.stats.commandsUsed || 0) + 1;

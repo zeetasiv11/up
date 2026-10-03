@@ -1,7 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType } = require("discord.js");
 const { createSuccessEmbed, createErrorEmbed } = require("../../utils/embeds.js");
-const db = require("../../utils/database.js");
-const { startGuard, stopGuard } = require("../../utils/voiceGuard.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -26,8 +24,7 @@ module.exports = {
         const sub = interaction.options.getSubcommand();
 
         if (sub === "off") {
-            const wasActive = await stopGuard(interaction.guildId);
-            db.updateGuild(interaction.guildId, { vcGuard: { enabled: false, channelId: "", textChannelId: "" } });
+            const wasActive = await interaction.client.music.stopGuard(interaction.guildId);
 
             return interaction.reply({
                 embeds: [
@@ -52,10 +49,7 @@ module.exports = {
         await interaction.deferReply();
 
         try {
-            await startGuard(interaction.guild, channel.id, interaction.channelId);
-            db.updateGuild(interaction.guildId, {
-                vcGuard: { enabled: true, channelId: channel.id, textChannelId: interaction.channelId }
-            });
+            await interaction.client.music.startGuard(interaction.guild, channel.id, interaction.channelId);
 
             await interaction.editReply({
                 embeds: [

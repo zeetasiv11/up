@@ -139,14 +139,17 @@ Music controls additionally require the user's current voice channel and DJ acce
 - Lavalink playback via Shoukaku; original slash commands preserved.
 - `zplay`, `zpause`, `zresume`, `zskip`, `zstop`, `zqueue` share slash command logic.
   Replace `z` with the guild's configured prefix.
-- Search selection, playlist enqueue, previous/pause/skip/replay, volume/seek,
+- Immediate first-result playback for `/play` searches, playlist enqueue, previous/pause/skip/replay, volume/seek,
   loop/autoplay, favorites/playlists/history and supported native filters.
 - Single saved Discord panel, artwork and generated fallback, state-aware buttons,
   volume modal, queue/lyrics pagination, animated custom emoji with safe fallback.
 - Updates on state changes and 15-second progress ticks; duplicate payloads skipped.
 - Web player with live SSE state, queue removal/clear, volume/seek, filters and controls.
-- Saved queue/position/filter/pause state can restore after restart (snapshots under
-  24 hours old). Transient node recovery and voice-guard retries are best effort.
+- Saved queue/position/filter/pause state restores after restart only for explicitly
+  enabled 24/7 or voice guard (snapshots under 24 hours old). Normal startup never
+  joins voice. Stop/leave suspends recovery until another explicit play/guard request.
+- Shoukaku owns node reconnection; MusicManager owns bounded voice recovery and
+  configured empty/finished queue timeouts. See [music lifecycle](docs/MUSIC_LIFECYCLE.md).
 
 Source availability depends on the actual node/plugins. Read [Lavalink setup](docs/LAVALINK.md).
 The dashboard never streams audio to the browser; audio stays in Discord voice.

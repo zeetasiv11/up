@@ -31,7 +31,7 @@ module.exports = {
         if (!queue) return;
 
         const mode = interaction.options.getString("mode", true);
-        const newMode = queue.setRepeatMode(MODE_MAP[mode]);
+        const newMode = await queue.setRepeatMode(MODE_MAP[mode]);
 
         await interaction.reply({ embeds: [createSuccessEmbed(`Mode loop diatur ke \`${loopLabel(newMode)}\`.`, "🔁 Loop")] });
     }
