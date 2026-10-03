@@ -8,6 +8,7 @@ const formatTime = (seconds) =>
         .padStart(2, "0")}`;
 const trackView = (track, user) => ({
     encoded: track.encoded,
+    identifier: track.info.identifier || "",
     name: track.info.title,
     url: track.info.uri || "",
     artist: track.info.author,
@@ -19,6 +20,20 @@ const trackView = (track, user) => ({
     user,
     source: track.info.sourceName,
 });
+// Share links and watch URLs for the same video must count as one history item.
+function songIdentity(song) {
+    try {
+        const url = new URL(song.url);
+        const host = url.hostname.replace(/^www\./, "");
+        const videoId = host === "youtu.be" ? url.pathname.slice(1)
+            : ["youtube.com", "music.youtube.com"].includes(host) ? url.searchParams.get("v") : null;
+        if (videoId) return `youtube:${videoId}`;
+        if (song.identifier) return `${song.source}:${song.identifier}`;
+        return `${url.origin}${url.pathname}`;
+    } catch {
+        return `${song.source}:${song.identifier || song.encoded}`;
+    }
+}
 class MusicQueue {
     constructor(manager, player, voiceChannel, textChannel) {
         this.manager = manager;
@@ -31,12 +46,14 @@ class MusicQueue {
         this.previousSongs = [];
         this.repeatMode = 0;
         this.autoplay = false;
+        this.autoplayFailures = 0;
+        this.playbackFailed = false;
         this.volume = manager.settings.music.defaultVolume;
         this.filters = new AudioFilters(this);
         this.voice = { leave: () => manager.leave(this.id), channel: voiceChannel };
     }
     get paused() {
-        return this.player.paused;
+        return this.playbackFailed || this.player.paused;
     }
     get currentTime() {
         return Math.max(0, this.player.position / 1000);
@@ -52,56 +69,114 @@ class MusicQueue {
         // Include pause state so REST and the local player keep the same state.
         return this.player.update({ paused: this.paused, ...options }, true);
     }
+    remember(song) {
+        this.previousSongs.push(song);
+        this.previousSongs = this.previousSongs.slice(-50);
+    }
     async start() {
         if (!this.songs[0]) return this.manager.notify(this);
         this.manager.clearIdleTimer(this.id, "finish");
-        this.epoch++;
-        this.playId = randomUUID();
-        this.loading = true;
-        void this.manager.notify(this).catch(() => {});
-        try {
-            await this.player.playTrack({
-                track: { encoded: this.songs[0].encoded, userData: { playId: this.playId } },
-                position: 0,
-                paused: false,
-            });
-        } catch (error) {
-            this.songs = [];
+        let lastError;
+        // A bad track must not erase the rest of a playlist. Bound REST attempts
+        // so a broken node cannot consume the whole queue or hold the guild lock forever.
+        for (let attempt = 0; attempt < 3 && this.songs.length; attempt++) {
+            if (this.manager.closing || this.manager.suspended.has(this.id))
+                throw new Error("Playback dibatalkan.");
+            const song = this.songs[0];
             this.epoch++;
-            await this.player.stopTrack().catch(() => {});
-            await this.manager.notify(this);
-            throw error;
-        } finally {
-            this.loading = false;
-        }
-        this.manager.logger.info(`[PLAYER] Playback started (${this.id})`);
-        try {
-            this.manager.history(this.id, this.songs[0]);
-        } catch {
-            this.manager.logger.warn(`[MUSIC] History unavailable (${this.id})`);
-        }
-        await this.manager.notify(this, { moveToBottom: true });
-    }
-    async advance(manual = false) {
-        const old = this.songs[0];
-        if (!old) return;
-        if (!manual && this.repeatMode === 1) return this.start();
-        this.songs.shift();
-        this.previousSongs.push(old);
-        this.previousSongs = this.previousSongs.slice(-50);
-        if (!manual && this.repeatMode === 2) this.songs.push(old);
-        if (!this.songs.length && this.autoplay) {
+            this.playId = randomUUID();
+            this.loading = true;
+            void this.manager.notify(this).catch(() => {});
             try {
-                const result = await this.manager.resolve(`${old.artist} ${old.name}`);
-                const seen = new Set(this.previousSongs.map((song) => song.url));
-                const next = result.tracks.find((track) => track.info.uri && !seen.has(track.info.uri));
-                if (next) this.songs.push(trackView(next, old.user));
+                await this.player.playTrack({
+                    track: { encoded: song.encoded, userData: { playId: this.playId } },
+                    position: 0,
+                    paused: false,
+                });
             } catch (error) {
-                this.manager.logger.warn(`Autoplay unavailable: ${error.message}`);
+                lastError = error;
+                this.epoch++;
+                this.playId = null;
+                this.playbackFailed = true;
+                const nodeFailure = error.code === "LAVALINK_TIMEOUT" || error.status >= 500 ||
+                    [401, 403, 404].includes(error.status);
+                if (!nodeFailure) {
+                    this.songs.shift();
+                    this.remember(song);
+                    if (song.autoplayGenerated) this.autoplayFailures++;
+                }
+                this.manager.logger.warn(`[PLAYER] Track start failed (${this.id})`, {
+                    status: Number.isInteger(error.status) ? error.status : "unavailable",
+                    code: error.code || error.name,
+                    remaining: this.songs.length,
+                });
+                await this.player.stopTrack().catch(() => {});
+                if (nodeFailure) break; // Preserve valid songs while the node is unavailable.
+                continue;
+            } finally {
+                this.loading = false;
+            }
+            this.playbackFailed = false;
+            this.manager.logger.info(`[PLAYER] Playback started (${this.id})`);
+            try {
+                this.manager.history(this.id, song);
+            } catch {
+                this.manager.logger.warn(`[MUSIC] History unavailable (${this.id})`);
+            }
+            await this.manager.notify(this, { moveToBottom: true });
+            return;
+        }
+        await this.manager.notify(this);
+        throw lastError;
+    }
+    async addAutoplay(seed) {
+        if (!this.autoplay || this.autoplayFailures >= 3) return false;
+        const seen = new Set(this.previousSongs.map(songIdentity));
+        const artist = String(seed.artist || "").trim();
+        const queries = [...new Set([`${artist} ${seed.name}`.trim(), artist || seed.name])];
+        for (const query of queries) {
+            if (this.manager.closing || this.manager.suspended.has(this.id)) return false;
+            try {
+                const result = await this.manager.resolve(query.slice(0, 1900));
+                if (this.manager.closing || this.manager.suspended.has(this.id)) return false;
+                const candidate = result.tracks.map(track => trackView(track, seed.user))
+                    .find(song => !song.isLive && !seen.has(songIdentity(song)));
+                if (!candidate) continue;
+                candidate.autoplayGenerated = true;
+                this.songs.push(candidate);
+                this.manager.logger.info(`[QUEUE] Autoplay candidate selected (${this.id})`);
+                return true;
+            } catch (error) {
+                this.manager.logger.warn(`[MUSIC] Autoplay search failed (${this.id})`, {
+                    code: error.code || error.name,
+                });
             }
         }
-        if (this.songs.length) return this.start();
+        this.manager.logger.warn(`[MUSIC] Autoplay found no unplayed candidate (${this.id})`);
+        return false;
+    }
+    async advance(manual = false, failed = false) {
+        const old = this.songs[0];
+        if (!old) return;
+        if (failed && old.autoplayGenerated) this.autoplayFailures++;
+        else if (!failed) this.autoplayFailures = 0;
+        if (!manual && !failed && this.repeatMode === 1) return this.start();
+        this.songs.shift();
+        this.remember(old);
+        if (!manual && !failed && this.repeatMode === 2) this.songs.push(old);
+        // Autoplay can choose another candidate after a failed start, with one
+        // shared failure budget across REST rejections and exception/end events.
+        for (let attempt = 0; attempt < 3; attempt++) {
+            if (!this.songs.length && !await this.addAutoplay(old)) break;
+            try {
+                return await this.start();
+            } catch (error) {
+                if (this.songs.length) throw error; // Retain pending requests for Resume or /play.
+            }
+        }
         this.epoch++;
+        this.playId = null;
+        this.playbackFailed = false;
         await this.player.stopTrack();
         await this.manager.notify(this);
         if (this.manager.settings.music.leaveOnFinish && !this.manager.isPersistent(this.id))
@@ -130,6 +205,7 @@ class MusicQueue {
     }
     resume() {
         return this.run(async () => {
+            if (this.playbackFailed) return this.start();
             await this.player.setPaused(false);
             await this.manager.notify(this);
         });
@@ -177,6 +253,7 @@ class MusicQueue {
     toggleAutoplay() {
         return this.run(async () => {
             this.autoplay = !this.autoplay;
+            if (this.autoplay) this.autoplayFailures = 0;
             await this.manager.notify(this);
             return this.autoplay;
         });
@@ -229,6 +306,8 @@ class MusicQueue {
         return this.manager.run(this.id, async () => {
             if (this.manager.getQueue(this.id) !== this) throw new Error("Player sudah tidak aktif.");
             this.songs = [];
+            this.playbackFailed = false;
+            this.playId = null;
             this.epoch++;
             try {
                 await this.player.stopTrack();

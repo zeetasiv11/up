@@ -53,6 +53,20 @@ rename channels or connect a player.
 
 ## Voice recovery
 
+Playback progression uses the per-play token returned in Lavalink events; encoded
+bytes are a fallback only when the node omits that token. A node can re-encode a
+track without making its terminal event stale. Epoch and current-queue checks still
+discard duplicate and old events.
+
+A rejected track start no longer clears the entire queue. Track-specific failures
+try up to three pending songs; node/transport/auth failures preserve the queue
+immediately. Remaining songs are retryable with Resume or a new request on the same
+player. Adding songs to healthy or deliberately paused playback does not restart it.
+Autoplay excludes canonical track identities from recent history, tries artist search
+when the first query fails or only returns repeats, and stops after three failed
+generated candidates. Stop cancels pending autoplay results. Source/node availability
+still determines whether a candidate can play.
+
 Normal startup does not join voice. Saved playback restores only when `musicMode247`
 or `vcGuard.enabled` explicitly opts in and the saved state is not suspended.
 The Discord ready event restores panels; node ready loads source/filter capabilities

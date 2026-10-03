@@ -269,10 +269,10 @@ class MusicManager extends EventEmitter {
         const dispatch = (event, fn) => {
             const song = queue.songs[0],
                 epoch = queue.epoch;
+            const token = event.track?.userData?.playId;
             if (
                 !song ||
-                event.track?.encoded !== song.encoded ||
-                (event.track.userData?.playId && event.track.userData.playId !== queue.playId)
+                (token ? token !== queue.playId : event.track?.encoded !== song.encoded)
             )
                 return;
             void this.run(queue.id, async () => {
@@ -285,17 +285,23 @@ class MusicManager extends EventEmitter {
                 )
                     return;
                 await fn();
-            }).catch(() => this.logger.error(`[PLAYER] Event handling failed (${queue.id})`));
+            }).catch((error) => this.logger.error(`[PLAYER] Event handling failed (${queue.id})`, {
+                code: error.code || error.name,
+                remaining: queue.songs.length,
+            }));
         };
         queue.player.on("start", (event) => dispatch(event, () => this.notify(queue)));
         queue.player.on("end", (event) => {
             if (["finished", "loadFailed"].includes(event.reason))
-                dispatch(event, () => queue.advance(event.reason === "loadFailed"));
+                dispatch(event, () => {
+                    this.logger.info(`[PLAYER] Track ended (${queue.id}, ${event.reason})`);
+                    return queue.advance(event.reason === "loadFailed", event.reason === "loadFailed");
+                });
         });
         for (const type of ["exception", "stuck"])
             queue.player.on(type, (event) => {
                 this.logger.warn(`[PLAYER] Track ${type} (${queue.id})`);
-                dispatch(event, () => queue.advance(true));
+                dispatch(event, () => queue.advance(true, true));
             });
         queue.player.on("closed", () => {
             if (this.getQueue(queue.id) === queue) this.handleVoiceDisconnect(queue.id);
@@ -345,16 +351,17 @@ class MusicManager extends EventEmitter {
             this.cancelRecovery(voiceChannel.guild.id);
             this.clearIdleTimer(voiceChannel.guild.id);
             const queue = await this.connect(voiceChannel, textChannel);
-            const idle = queue.songs.length === 0;
+            const idle = queue.songs.length === 0 || queue.playbackFailed;
             try {
                 this.assertMember(member, voiceChannel);
                 if (textChannel?.guildId === queue.id && textChannel.isTextBased?.())
                     queue.textChannel = textChannel;
                 queue.songs.splice(position === 1 && !idle ? 1 : queue.songs.length, 0, ...songs);
+                queue.autoplayFailures = 0;
                 if (idle) await queue.start();
                 else await this.notify(queue, { moveToBottom: true });
             } catch (error) {
-                if (idle) {
+                if (idle && !queue.songs.length) {
                     this.suspend(queue.id);
                     await this.disconnect(queue.id);
                 }
