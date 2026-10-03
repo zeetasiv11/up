@@ -26,7 +26,12 @@ module.exports = {
                 operation: error.operation || "voice-or-queue",
                 code: error.code || error.name,
             });
-            return interaction.editReply({ content: "", embeds: [createErrorEmbed("Lagu belum bisa diputar. Pastikan kamu masih di voice channel yang sama dan node/source tersedia.")], components: [] });
+            const message = error.code === "LAVALINK_TIMEOUT"
+                ? "Node musik terlalu lama merespons. Coba lagi sebentar atau gunakan URL lagu langsung."
+                : error.code === "LAVALINK_REQUEST_FAILED"
+                  ? `Node musik gagal memproses ${error.operation === "search" ? "pencarian" : "pemutaran"} (HTTP ${error.status}). Coba lagu lain; jika tetap gagal, admin perlu memeriksa node musik.`
+                  : "Lagu belum bisa diputar. Pastikan kamu masih di voice channel yang sama dan bot memiliki izin Connect/Speak.";
+            return interaction.editReply({ content: "", embeds: [createErrorEmbed(message)], components: [] });
         }
     }
 };

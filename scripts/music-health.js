@@ -6,13 +6,16 @@ try {
 async function main() {
     const { LAVALINK_HOST: host, LAVALINK_PASSWORD: password } = process.env;
     if (!host || !password) throw new Error("LAVALINK_HOST and LAVALINK_PASSWORD required");
-    const origin = `${process.env.LAVALINK_SECURE === "true" ? "https" : "http"}://${host}:${process.env.LAVALINK_PORT || 2333}`;
-    const response = await fetch(`${origin}/v4/info`, {
-        headers: { Authorization: password },
-        signal: AbortSignal.timeout(10000),
-    });
-    if (!response.ok) throw new Error(`Lavalink health HTTP ${response.status}`);
-    const info = await response.json();
+    const { LavalinkRest } = require("../src/music/LavalinkRest");
+    const rest = new LavalinkRest(
+        { manager: { options: { userAgent: "Zeechei-Health/4.0", restTimeout: 10 } } },
+        {
+            url: `${host}:${process.env.LAVALINK_PORT || 2333}`,
+            secure: process.env.LAVALINK_SECURE === "true",
+            auth: password,
+        },
+    );
+    const info = await rest.getLavalinkInfo();
     console.log(
         JSON.stringify({
             version: info.version.semver,

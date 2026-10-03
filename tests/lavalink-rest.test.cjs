@@ -79,3 +79,66 @@ test("node filter capabilities are loaded before saved player restoration", asyn
     await restoreNode(music, "primary", {}, {}, {});
     assert.equal(restored, 1);
 });
+
+test("REST uses native HTTP without fetch browser headers and preserves query/body encoding", async (t) => {
+    const seen = [];
+    const server = http.createServer(async (req, res) => {
+        let body = "";
+        for await (const chunk of req) body += chunk;
+        seen.push({ url: req.url, body, headers: req.headers });
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ ok: true }));
+    });
+    await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
+    t.after(() => new Promise((resolve) => server.close(resolve)));
+    const rest = new LavalinkRest(
+        { manager: { options: { restTimeout: 2, userAgent: "Shoukaku-test" } } },
+        { url: `127.0.0.1:${server.address().port}`, auth: "synthetic" },
+    );
+    await rest.resolve("ytsearch:hello & world");
+    await rest.fetch({
+        endpoint: "/sessions/test/players/guild",
+        options: {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: { track: { encoded: "synthetic", userData: { label: "音楽" } } },
+        },
+    });
+    assert.equal(
+        new URL(seen[0].url, "http://localhost").searchParams.get("identifier"),
+        "ytsearch:hello & world",
+    );
+    assert.equal(seen[0].headers["sec-fetch-mode"], undefined);
+    assert.equal(seen[0].headers.authorization, "synthetic");
+    assert.equal(seen[0].headers["user-agent"], "Shoukaku-test");
+    assert.equal(Number(seen[1].headers["content-length"]), Buffer.byteLength(seen[1].body));
+    assert.equal(JSON.parse(seen[1].body).track.userData.label, "音楽");
+});
+
+test("REST timeout covers stalled response bodies and redirects do not forward credentials", async (t) => {
+    let redirected = false;
+    const server = http.createServer((req, res) => {
+        if (req.url === "/v4/info") {
+            res.writeHead(200, { "Content-Type": "application/json" });
+            res.write('{"partial":');
+        } else if (req.url === "/v4/redirect") {
+            res.writeHead(302, { Location: "/credential-target" });
+            res.end();
+        } else {
+            redirected = true;
+            res.end("{}");
+        }
+    });
+    await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
+    t.after(() => {
+        server.closeAllConnections();
+        return new Promise((resolve) => server.close(resolve));
+    });
+    const rest = new LavalinkRest(
+        { manager: { options: { restTimeout: 0.1 } } },
+        { url: `127.0.0.1:${server.address().port}`, auth: "synthetic" },
+    );
+    await assert.rejects(rest.getLavalinkInfo(), { code: "LAVALINK_TIMEOUT", status: 503 });
+    await assert.rejects(rest.fetch({ endpoint: "/redirect", options: {} }), { status: 302 });
+    assert.equal(redirected, false);
+});
