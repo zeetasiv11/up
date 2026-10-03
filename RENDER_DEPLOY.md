@@ -1,6 +1,6 @@
 # Render Blueprint: always-on bot and dashboard
 
-`render.yaml` manages the existing **zeechei-v4-dashboard** service. It uses a paid
+`render.yaml` defines the **zeechei-v4-dashboard** service. It uses a paid
 `0.5c-512mb` compute plan (0.5 CPU / 512 MB, listed at **US$7/month** on 2026-10-02,
 excluding other usage and taxes), one instance, and the Singapore region.
 
@@ -16,14 +16,15 @@ References: [Blueprints](https://render.com/docs/infrastructure-as-code),
 ## Apply the prepared Blueprint
 
 1. Open Render in **zeta's workspace** and choose **New + → Blueprint**.
-2. Select repository `ijalxiaomi65-source/up` and branch
-   `coderabbit/upgrade-zeechei-v4-music-dashboard/7c79d5d0`.
+2. Select repository `zeetasiv11/up` and branch
+   `coderabbit/fix-v4-music-player-lifecycle/d92024e1`.
 3. Use Blueprint Path `render.yaml`. Prefer **Auto Sync: No** while configuring
    database migration and deployment sequencing.
-4. Review the plan: it should adopt/update the existing service
-   `zeechei-v4-dashboard` (`srv-davm8uad0e5s738hudog`), changing its compute plan
-   from Free to `0.5c-512mb`. Confirm the displayed price before **Deploy Blueprint**.
-   If it proposes an additional service, check the workspace and exact name first.
+4. Review the plan and service identity before **Deploy Blueprint**. A new
+   Blueprint can create a separate service with a suffixed name when a matching
+   service already exists. To update an existing Blueprint, use its settings and
+   **Manual Sync** instead. Check the source repo, branch, environment variables
+   and displayed compute price; keep only one running bot for the Discord token.
 5. A source-file push alone does not attach the service to a Blueprint or change
    the live compute plan. The Blueprint must be created/synced in Render.
 

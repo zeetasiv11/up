@@ -1,12 +1,12 @@
 # Paid, always-on bot + dashboard in one process. Applying this Blueprint
-# adopts the existing same-name service and changes its compute plan.
+# must be reviewed in Render before adopting an existing service.
 # Render lists 0.5c-512mb at USD 7/month (excluding other usage/taxes).
 services:
   - type: web
     name: zeechei-v4-dashboard
     runtime: node
-    repo: https://github.com/ijalxiaomi65-source/up
-    branch: coderabbit/upgrade-zeechei-v4-music-dashboard/7c79d5d0
+    repo: https://github.com/zeetasiv11/up
+    branch: coderabbit/fix-v4-music-player-lifecycle/d92024e1
     region: singapore
     plan: 0.5c-512mb
     numInstances: 1
