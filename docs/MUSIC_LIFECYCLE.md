@@ -43,6 +43,14 @@ state after Discord fetches. Duplicate edits are skipped. Startup restoration re
 the saved panel without moving it or joining voice.
 SSE and dashboard state come from the same manager.
 
+Voice channels show `🎧 Playing • title` or `⏸ Paused • title` from the same queue.
+Stop, queue exhaustion and disconnect clear the bot's status; moving voice channels
+also attempts to clear the old channel. Discord requires **Set Voice Channel Status**,
+plus **Manage Channels** to clear a channel after the bot has already moved away.
+Status writes are serialized/coalesced, unchanged values are skipped, and errors
+have a 60-second retry cooldown without interrupting music. This feature does not
+rename channels or connect a player.
+
 ## Voice recovery
 
 Normal startup does not join voice. Saved playback restores only when `musicMode247`

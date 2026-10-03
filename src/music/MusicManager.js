@@ -2,10 +2,12 @@ const { EventEmitter } = require("node:events");
 const { AsyncLocalStorage } = require("node:async_hooks");
 const { MusicQueue, trackView } = require("./PlayerManager.js");
 const { resolve, validateTracks } = require("./TrackResolver.js");
+const { VoiceStatusUpdater } = require("./VoiceStatusUpdater.js");
 class MusicManager extends EventEmitter {
     constructor({ client, lavalink, panels, settings, repository, history, logger }) {
         super();
         Object.assign(this, { client, lavalink, panels, settings, repository, history, logger });
+        this.voiceStatus = new VoiceStatusUpdater(client, logger);
         this.queues = new Map();
         this.locks = new Map();
         this.actors = new AsyncLocalStorage();
@@ -89,6 +91,7 @@ class MusicManager extends EventEmitter {
     }
     async notify(queue, panelOptions) {
         if (this.getQueue(queue.id) !== queue || queue.destroyed) return null;
+        void this.voiceStatus.update(queue).catch(() => this.logger.warn("[VOICE] Status update failed"));
         try {
             this.emit("change", queue.id);
         } catch {
@@ -366,6 +369,8 @@ class MusicManager extends EventEmitter {
         this.clearIdleTimer(guildId);
         this.queues.delete(guildId);
         if (queue) queue.destroyed = true;
+        // Clear while still connected, when Discord does not require Manage Channels.
+        await this.voiceStatus.clear(guildId).catch(() => this.logger.warn("[VOICE] Status cleanup failed"));
         await this.lavalink.leaveVoiceChannel(guildId);
         if (queue) {
             if (!preserveState && !this.closing) {
