@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const { checkVoiceChannel } = require("../../utils/musicChecks.js");
 const { createErrorEmbed, createSuccessEmbed } = require("../../utils/embeds.js");
 const logger = require("../../utils/logger.js");
@@ -19,7 +19,15 @@ module.exports = {
             const denied = require("../../src/bot/middleware/accessPolicy").accessError(interaction.user.id, interaction.guildId);
             if (denied) return interaction.editReply({ content:denied, components:[] });
             const count = await interaction.client.music.enqueue(check.memberVoice, tracks, { textChannel: interaction.channel, member: interaction.member });
-            return interaction.editReply({ content: "", embeds: [createSuccessEmbed(count === 1 ? tracks[0].info.title.slice(0, 250) : `${count} tracks added`, "Added to queue")], components: [] });
+            const panelUrl = interaction.client.music.getPanelUrl(interaction.guildId);
+            const embed = createSuccessEmbed(count === 1 ? tracks[0].info.title.slice(0, 250) : `${count} tracks added`, "Added to queue");
+            embed.addFields({ name: "Panel musik", value: panelUrl
+                ? `[Buka panel aktif untuk pause, skip, volume, dan antrean](${panelUrl}).`
+                : "Panel belum tersedia. Admin perlu memeriksa izin View Channel, Send Messages, Embed Links, dan Read Message History pada channel panel." });
+            const components = panelUrl ? [new ActionRowBuilder().addComponents(
+                new ButtonBuilder().setStyle(ButtonStyle.Link).setLabel("Buka Panel Musik").setURL(panelUrl)
+            )] : [];
+            return interaction.editReply({ content: "", embeds: [embed], components });
         } catch (error) {
             logger.warn(`[MUSIC] Play request failed (${interaction.guildId})`, {
                 status: Number.isInteger(error.status) ? error.status : "unavailable",

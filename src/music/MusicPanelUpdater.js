@@ -9,6 +9,9 @@ class MusicPanelUpdater {
         this.signatures = new Map();
         this.pending = new Map();
     }
+    getUrl(guildId) {
+        return this.panels.get(guildId)?.url || null;
+    }
     async update(queue, song = queue?.songs?.[0], reason) {
         const guildId = queue?.id || queue?.textChannel?.guildId;
         if (!guildId) return null;

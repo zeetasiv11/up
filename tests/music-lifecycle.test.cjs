@@ -75,6 +75,40 @@ test("fresh /play starts the first search result immediately and repeated comman
     }
 });
 
+test("slash and prefix play expose the restored panel instead of leaving it hidden in an old channel", async (t) => {
+    const f = session();
+    t.after(() => f.manager.close());
+    const { MusicPanelUpdater } = require("../src/music/MusicPanelUpdater");
+    const { prefixInteraction } = require("../src/bot/PrefixInteraction");
+    let created = 0;
+    const panel = { id: "panel", channelId: "old-channel", author: { id: "bot" },
+        url: "https://discord.com/channels/guild/old-channel/panel", edit: async () => {} };
+    const savedChannel = { id: "old-channel", guildId: "guild", isTextBased: () => true,
+        messages: { fetch: async () => panel }, send: async () => { created++; return panel; } };
+    panel.channel = savedChannel;
+    f.manager.client.user = { id: "bot" };
+    f.manager.client.channels = { fetch: async () => savedChannel };
+    f.manager.repository.updateGuild("guild", { musicPanel: { channelId: "old-channel", messageId: "panel" } });
+    f.manager.panels = new MusicPanelUpdater(f.manager.client, f.manager.repository, silent);
+    f.interaction.channel = { ...savedChannel, id: "new-channel" };
+    await play.execute(f.interaction);
+    const checkLink = () => {
+        const button = f.reply.components[0].toJSON().components[0];
+        assert.equal(button.style, 5);
+        assert.equal(button.url, panel.url);
+        assert.match(f.reply.embeds[0].toJSON().fields[0].value, /old-channel\/panel/);
+    };
+    checkLink();
+    const player = f.manager.getQueue("guild").player;
+    const message = { ...f.interaction, author: f.listener.user, channelId: "new-channel",
+        reply: async () => ({ edit: async (payload) => { f.reply = payload; } }) };
+    await play.execute(prefixInteraction(message, ["another song"]));
+    checkLink();
+    assert.equal(created, 0);
+    assert.equal(f.lavalink.joins, 1);
+    assert.equal(f.manager.getQueue("guild").player, player);
+});
+
 test("concurrent creation and concurrent enqueues never duplicate guild players", async (t) => {
     const f = session();
     t.after(() => f.manager.close());

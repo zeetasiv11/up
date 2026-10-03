@@ -33,6 +33,9 @@ class MusicManager extends EventEmitter {
     getQueue(guildId) {
         return this.queues.get(guildId) || null;
     }
+    getPanelUrl(guildId) {
+        return this.panels.getUrl?.(guildId) || null;
+    }
     withMember(member, fn) {
         return this.actors.run(member, fn);
     }
