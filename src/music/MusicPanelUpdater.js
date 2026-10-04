@@ -112,7 +112,7 @@ class MusicPanelUpdater {
         if (panel && this.signatures.get(guildId) === signature) return panel;
         if (panel) {
             try {
-                await panel.edit(payload);
+                panel = (await panel.edit(payload)) || panel;
             } catch (error) {
                 if (error.code !== 10008) throw error;
                 panel = null;

@@ -129,3 +129,22 @@ test("nowplaying reply supplies the image referenced by its embed", async () => 
     await command.execute({ reply: async payload => { reply = payload; } });
     assert.equal(reply.embeds[0].data.image.url, `attachment://${reply.files[0].name}`);
 });
+
+test("edits retain the fresh message returned by Discord when attachment IDs change", async () => {
+    const f = fixture();
+    const old = await f.updater.update(f.queue);
+    let latest;
+    old.edit = async payload => {
+        latest = { ...old, attachments: new Collection(payload.files.map((file, i) => [String(i + 10), { id: String(i + 10), name: file.name }])) };
+        return latest;
+    };
+    f.queue.paused = true;
+    await f.updater.update(f.queue);
+    assert.equal(f.updater.panels.get("guild"), latest);
+    let edited;
+    latest.edit = async payload => { edited = payload; return latest; };
+    f.queue.volume = 51;
+    await f.updater.update(f.queue);
+    assert.ok(edited.attachments.some(file => file.id === "10"));
+    assert.ok(!edited.files.some(file => file.name === "equalizer-paused.png"));
+});
