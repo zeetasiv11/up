@@ -54,6 +54,7 @@ module.exports = {
 
         await registerCommands(client);
         startStatusRotation(client);
+        await require("../src/music/MusicAssets").initializeMusicEmojis(client, logger);
         await client.distube?.restoreMusicPanels?.();
     }
 };

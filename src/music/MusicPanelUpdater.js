@@ -8,13 +8,14 @@ class MusicPanelUpdater {
         this.panels = new Map();
         this.signatures = new Map();
         this.pending = new Map();
+        this.ending = new Set();
     }
     getUrl(guildId) {
         return this.panels.get(guildId)?.url || null;
     }
     async update(queue, song = queue?.songs?.[0], reason, { moveToBottom = false } = {}) {
         const guildId = queue?.id || queue?.textChannel?.guildId;
-        if (!guildId) return null;
+        if (!guildId || queue?.destroyed || this.ending.has(guildId)) return null;
         let pending = this.pending.get(guildId);
         if (pending) {
             Object.assign(pending, { queue, song, reason, dirty: true });
@@ -41,6 +42,7 @@ class MusicPanelUpdater {
         return pending.promise;
     }
     async write(guildId, queue, song, reason, moveToBottom = false) {
+        if (this.ending.has(guildId) || queue?.destroyed) return null;
         const saved = this.repository.getGuild(guildId).musicPanel;
         let panel = this.panels.get(guildId),
             channel = queue?.textChannel || panel?.channel;
@@ -52,7 +54,7 @@ class MusicPanelUpdater {
             }
             if (channel?.messages && saved.messageId) {
                 try {
-                    panel = await channel.messages.fetch(saved.messageId);
+                    panel = await channel.messages.fetch({ message: saved.messageId, force: true });
                 } catch (error) {
                     if (error.code !== 10008) throw error;
                 }
@@ -66,6 +68,7 @@ class MusicPanelUpdater {
         // Read authoritative state after Discord fetches and debounce, never a captured old song.
         if (this.client.music) {
             queue = this.client.music.getQueue(guildId);
+            if (!queue || queue.destroyed || this.ending.has(guildId)) return null;
             song = queue?.songs[0];
         } else if (song !== null) song = queue?.songs?.[0];
         if (moveToBottom && song) {
@@ -93,15 +96,19 @@ class MusicPanelUpdater {
             song && !require("../../utils/musicPanel.js").safeUrl(song.thumbnail)
                 ? require("./FallbackArtwork").fallbackArtwork(song.name, song.artist)
                 : null;
-        if (fallback) payload.embeds[0].setImage(`attachment://${fallback.name}`);
+        const assets = song ? [require("./MusicAssets").visualizerAsset(queue)] : [];
+        if (fallback) {
+            payload.embeds[0].setThumbnail(`attachment://${fallback.name}`);
+            assets.push(fallback);
+        }
         const signature = JSON.stringify(payload);
-        if (
-            fallback &&
-            (!panel || !panel.attachments?.some?.((attachment) => attachment.name === fallback.name))
-        ) {
-            payload.files = [fallback];
-            payload.attachments = [];
-        } else if (!fallback) payload.attachments = [];
+        const attach = message => {
+            const retained = [...(message?.attachments?.values?.() || [])]
+                .filter(file => assets.some(asset => asset.name === file.name));
+            payload.attachments = retained.map(file => ({ id: file.id }));
+            payload.files = assets.filter(asset => !retained.some(file => file.name === asset.name));
+        };
+        attach(panel);
         if (panel && this.signatures.get(guildId) === signature) return panel;
         if (panel) {
             try {
@@ -112,6 +119,8 @@ class MusicPanelUpdater {
             }
         }
         if (!panel) {
+            // A replacement needs its own files even if the deleted message had them.
+            attach(null);
             panel = await channel.send(payload);
             // Keep the message identity even when persistence is temporarily unavailable.
             this.panels.set(guildId, panel);
@@ -129,10 +138,40 @@ class MusicPanelUpdater {
         this.panels.delete(guildId);
         this.signatures.delete(guildId);
     }
+    async endSession(guildId) {
+        this.ending.add(guildId);
+        try {
+            await this.pending.get(guildId)?.promise;
+            const panel = this.panels.get(guildId);
+            const saved = this.repository.getGuild(guildId).musicPanel;
+            // Retire the reference even if Discord cannot delete an inaccessible
+            // old message. It must never block the next voice session's panel.
+            this.forget(guildId);
+            this.repository.updateGuild(guildId, { musicPanel: null });
+            try {
+                let old = panel;
+                if (!old && saved?.channelId && saved.messageId) {
+                    const channel = await this.client.channels.fetch(saved.channelId);
+                    if (channel?.guildId === guildId)
+                        old = await channel.messages.fetch({ message: saved.messageId, force: true });
+                }
+                if (old?.author?.id === this.client.user.id) await old.delete();
+            } catch (error) {
+                if (![10003, 10008].includes(error.code))
+                    this.logger.warn(`[PANEL] Old session cleanup failed (${guildId}, code ${error.code || "unknown"})`);
+            }
+            await this.repository.flush?.();
+        } finally {
+            this.ending.delete(guildId);
+        }
+    }
     async restore() {
         for (const [id, config] of Object.entries(this.repository.getDB().guilds)) {
-            if (config.musicPanel && this.client.guilds.cache.has(id))
-                await this.update(this.client.music?.getQueue(id) || { id });
+            if (config.musicPanel && this.client.guilds.cache.has(id)) {
+                const queue = this.client.music?.getQueue(id);
+                if (queue) await this.update(queue);
+                else await this.endSession(id);
+            }
         }
     }
 }

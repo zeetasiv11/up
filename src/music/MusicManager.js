@@ -378,7 +378,11 @@ class MusicManager extends EventEmitter {
         if (queue) queue.destroyed = true;
         // Clear while still connected, when Discord does not require Manage Channels.
         await this.voiceStatus.clear(guildId).catch(() => this.logger.warn("[VOICE] Status cleanup failed"));
-        await this.lavalink.leaveVoiceChannel(guildId);
+        try {
+            await this.lavalink.leaveVoiceChannel(guildId);
+        } finally {
+            await this.panels.endSession?.(guildId);
+        }
         if (queue) {
             if (!preserveState && !this.closing) {
                 queue.songs = [];
@@ -389,7 +393,6 @@ class MusicManager extends EventEmitter {
             } catch {
                 this.logger.warn(`[MUSIC] State listener failed (${guildId})`);
             }
-            await this.panels.update(queue, null);
         }
         this.logger.info(`[VOICE] Disconnected (${guildId})`);
     }

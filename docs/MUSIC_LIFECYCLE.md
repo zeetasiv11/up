@@ -111,3 +111,11 @@ Supabase persistence, migration, authorization and startup suites remain require
 Local fixtures do not deliver audio or prove node source plugins and real Discord
 voice transport. Live `/play` audio and real outage/reconnect acceptance require a
 configured Discord test guild and Lavalink node; these remain operator checks.
+
+## Panel sessions and animation
+
+Disconnect retires the cached and saved panel identity and tries to delete the old message, even when voice teardown fails. Pending writes finish before cleanup; updates for destroyed queues are ignored. Startup removes saved panels without an active queue. A later play creates a new panel in its request channel. Inaccessible old messages may remain, but their saved references cannot block the new session.
+
+Panel attachments are retained by filename on edits and uploaded afresh on replacement, including Discord Unknown Message recovery. Original purple/pink equalizer GIFs animate without extra message edits; pause/loading/recovery use a static image. This is a decorative animation, not audio analysis. Bassboost/8D shortcuts use the existing queue filters, preserve pause, and are disabled when the node does not support them.
+
+At ready the bot fetches its own application emojis and uploads missing `zeechei_*_v1` assets once. User emoji overrides keep priority. API failures use Unicode fallbacks and do not block playback. Assets are committed in `assets/music`; production does not run the asset generator.

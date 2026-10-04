@@ -69,6 +69,12 @@ async function handleMusicButton(interaction, id = interaction.customId) {
 
     try {
         await interaction.deferUpdate();
+        if (["music_effect_bassboost", "music_effect_8d"].includes(id)) {
+            const effect = id.slice("music_effect_".length);
+            if (queue.filters.has(effect)) await queue.filters.remove(effect);
+            else await queue.filters.add(effect);
+            return refreshPanel(interaction, queue);
+        }
         if (id === "music_prev") {
             if (!queue.previousSongs?.length) {
                 return respond(interaction, { embeds: [createErrorEmbed("Tidak ada lagu sebelumnya.")], ephemeral: true });

@@ -1,5 +1,6 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, escapeMarkdown } = require("discord.js");
 const { MusicEmojiManager } = require("../src/music/MusicEmojiManager.js");
+const { visualizerAsset } = require("../src/music/MusicAssets");
 const theme = require("../src/music/MusicTheme.js");
 const { progressBar } = require("./musicFormat.js");
 const safeUrl = value => { try { const url = new URL(value); return ["http:", "https:"].includes(url.protocol) ? url.href : null; } catch { return null; } };
@@ -14,11 +15,12 @@ function buildNowPlayingEmbed(queue, song) {
         .setAuthor({ name: theme.brand }).setTitle(String(song.name || "Unknown track").slice(0, 256))
         .setDescription(`${status}\n${artist ? `**${text(artist, 180)}**\n\n` : "\n"}` +
             `${queue.formattedCurrentTime || "00:00"}  ${progressBar(queue.currentTime || 0, song.duration)}  ${song.formattedDuration || "LIVE"}\n\n` +
-            `${emoji.getVolumeEmoji()} ${queue.volume}%   ·   ${Math.max(0, (queue.songs?.length || 1) - 1)} queued   ·   Loop ${theme.loops[queue.repeatMode] || "Off"}`)
+            `${emoji.getVolumeEmoji()} ${queue.volume}%   ·   ${Math.max(0, (queue.songs?.length || 1) - 1)} queued   ·   Loop ${theme.loops[queue.repeatMode] || "Off"}\n${emoji.getMusicEmoji()} Audio · ${[...(queue.filters?.active?.keys?.() || [])].join(" + ") || "Normal"}`)
         .setFooter({ text: `Requested by ${String(song.user?.displayName || song.user?.username || "a listener").slice(0, 80)} · Autoplay ${queue.autoplay ? "on" : "off"}` });
     const url = safeUrl(song.url), image = safeUrl(song.thumbnail);
     if (url) embed.setURL(url);
-    if (image) embed.setImage(image);
+    if (image) embed.setThumbnail(image);
+    embed.setImage(`attachment://${visualizerAsset(queue).name}`);
 
     return embed;
 }
@@ -35,7 +37,10 @@ function buildControlRows(queue) {
     const primary = new ActionRowBuilder().addComponents(
         button("prev", "Previous", "previous", ButtonStyle.Secondary, !active || !queue?.previousSongs?.length),
         button("playpause", queue?.paused ? "Resume" : "Pause", queue?.paused ? "play" : "pause", ButtonStyle.Primary),
-        button("skip", "Next", "next", ButtonStyle.Secondary, !active || (queue.songs.length < 2 && !queue.autoplay))
+        button("skip", "Next", "next", ButtonStyle.Secondary, !active || (queue.songs.length < 2 && !queue.autoplay)),
+        ...[["bassboost", "Bassboost"], ["8d", "8D"]].map(([effect, label]) =>
+            button(`effect_${effect}`, label, "music", queue?.filters?.has?.(effect) ? ButtonStyle.Success : ButtonStyle.Secondary,
+                !active || !queue?.filters?.supports?.(effect)))
     );
     const secondary = new ActionRowBuilder().addComponents(
         button("queue", "Queue", "queue"), button("fav", "Favorite", "heart"), button("shuffle", "Shuffle", "shuffle"),

@@ -90,7 +90,7 @@ test("requests and track changes move one panel to the latest channel while cont
         return panel;
     };
     const makeChannel = (id) => ({ id, guildId: "guild", isTextBased: () => true,
-        messages: { fetch: async id => messages.get(id) },
+        messages: { fetch: async options => messages.get(options.message || options) },
         async send() { assert.equal(messages.size, 0); return makePanel(this, `panel-${++created}`); } });
     const savedChannel = makeChannel("old-channel");
     makePanel(savedChannel, "old-panel");
@@ -135,6 +135,16 @@ test("requests and track changes move one panel to the latest channel while cont
     assert.equal(messages.size, 1);
     assert.equal(f.lavalink.joins, 1);
     assert.equal(q.player, player);
+    const previousPanel = [...messages.keys()][0];
+    await f.manager.leave("guild");
+    assert.equal(messages.size, 0);
+    assert.equal(f.manager.repository.getGuild("guild").musicPanel, null);
+    assert.equal(f.manager.panels.getUrl("guild"), null);
+    await play.execute(f.interaction);
+    assert.equal(messages.size, 1);
+    assert.notEqual([...messages.keys()][0], previousPanel);
+    assert.equal(f.lavalink.joins, 2);
+    assert.equal(f.lavalink.players.size, 1);
 });
 
 test("concurrent creation and concurrent enqueues never duplicate guild players", async (t) => {
@@ -160,7 +170,12 @@ test("panel and dashboard controls act on the active player; volume/seek/filter 
     assert.equal(playerState(f.manager.client, "guild").status, "paused");
     await control(f.manager.client, f.channel.guild, f.listener.user.id, { action: "volume", value: 35 });
     await q.seek(15);
-    await q.filters.add("bassboost");
+    await f.manager.withMember(f.listener, () => handleMusicButton(f.interaction, "music_effect_bassboost"));
+    assert.ok(q.filters.has("bassboost"));
+    await f.manager.withMember(f.listener, () => handleMusicButton(f.interaction, "music_effect_8d"));
+    assert.ok(q.filters.has("8d"));
+    await f.manager.withMember(f.listener, () => handleMusicButton(f.interaction, "music_effect_8d"));
+    assert.equal(q.filters.has("8d"), false);
     assert.equal(q.paused, true);
     assert.equal(playerState(f.manager.client, "guild").volume, 35);
     await q.filters.clear();
